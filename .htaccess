@@ -1,0 +1,6 @@
+RewriteEngine on
+
+rewriteCond %{REQUEST_URI} !^/Quetion_Brico/uploads/style.css$
+
+# RewriteRule ^(.*)$ index.php?=url=$1 [L,QSA]
+  RewriteRule ^([a-zA-Z069\-\_\/]*)$ index.php?=url=$1 [L,QSA]
