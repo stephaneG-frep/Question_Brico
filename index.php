@@ -1,4 +1,5 @@
 <?php
+
 //inclure le fichier de la classe autoload
 require_once "Autoload.php";
 
@@ -6,6 +7,7 @@ require_once "Autoload.php";
 //et appeler sa méthode
 $router = new Router();
 $router->routeRequest();
+
 
 ?>
 

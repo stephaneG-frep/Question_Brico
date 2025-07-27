@@ -23,7 +23,7 @@ class Autoload{
         // foreach pour parcourir tous les répertoires
         foreach($directories as $directory){
             //chemin complet du fichier de classe
-            $file = $baseDir . $directory . $className.'.php';
+            $file = $baseDir.$directory.$className.'.php';
 
             //vérifier si le chemin existe
             if(file_exists($file)){

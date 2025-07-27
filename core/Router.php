@@ -10,15 +10,15 @@ class Router{
         //diviser l'url en parties en utilisant '/' comme séparateur et trim pour supprimer les espaces
         $urlParts = explode('/', trim($url, '/'));
         //construire le nom du controlleur en fonction de la premiere partie de l'url
-        $controllerName = (!empty($urlParts[0])) ? ucfirst($urlParts[0]).'controller' : 'HomeController';
+        $controllerName = (!empty($urlParts[0])) ? ucfirst($urlParts[0]).'Controller' : 'HomeController';
         //déterminer l'action en fonction de la deuxieme partie de l'url, par défaut 'index'
         $action = (!empty($urlParts[1])) ? $urlParts[1] : 'index';
         //construre le chemin vers le fichier du controleur
-        $controllerFile = 'controllers/'.$controllerName.'php';
+        $controllerFile = 'controllers/'.$controllerName.'.php';
         //vérifier si le fichier du controleur existe
         if(file_exists($controllerFile)){
             //inclure le fichier du controleur
-            require_once($controllerName);
+            require_once($controllerFile);
             //vérifier si la classe du controleur existe
             if(class_exists($controllerName)){
                 //instancier le controleur
