@@ -6,7 +6,7 @@ ob_start();
 
 echo $this->index();
 
-$content = ob_end_clean();
+$content = ob_get_clean();
 
 include('views/include/template.php');
 
