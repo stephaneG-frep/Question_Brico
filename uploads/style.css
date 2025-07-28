@@ -4,12 +4,108 @@
     box-sizing: border-box;
 }
 body{
+    display: grid;
+    place-items: center;
+    margin: auto;
     background-image: url('img/background.jpg');
     background-size: cover;
+    color: rgb(2, 82, 29);
+    text-align: center;
+    align-items: center;
+    width: 100%;
 }
+
+/* navigation et header  */
 
 .nav{
     display: inline-block;
     background-color: cadetblue;
     width: 100%;
+}
+.nav-link {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.nav-link,li {
+    display: inline-block;
+    margin-left: 10px;
+}
+.nav-link,li,a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: cornsilk;
+    padding: 10px 15px;
+    display: inline-block;
+}
+
+
+/*   formulaires  */
+.inscrip{
+    width: 50%;
+    height: auto;
+    background-color: rgb(146, 185, 156);
+    padding: 20px;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    border-radius: 4%;
+    box-shadow: 5px 5px rgb(34, 34, 33), -1em 0 0.4em rgb(128, 152, 158);
+    border: solid 2px #333;
+}
+input, label{
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    margin: auto;
+}
+.connect{
+    display: grid;
+    place-items: center;
+    width: 380px;
+    background-color: #306b08;
+    color: rgb(97, 152, 201);
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+
+
+/* p h1 h2 ext...*/
+h1 {
+    display: grid;
+    place-items: center;
+    background: -webkit-linear-gradient(rgb(199, 255, 67)0%, rgb(113, 223, 159));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 25px;
+    text-decoration-line: underline;
+    margin-bottom: 20px;
+    font-size: 52px;
+    font-weight: bold;
+}
+
+p { 
+    font-weight: bold;
+    font-size:x-large;
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: -webkit-linear-gradient(rgb(117, 133, 81)0%, rgb(29, 73, 47));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;    
+ }
+
+
+/*  footer */
+footer { 
+    display: inline-block;   
+    width: 100%;
+    background-color: rgb(99, 156, 14); 
+    color: darkgoldenrod; 
+    border: 4px solid #467046;
+    margin-top: 100px;  
+    margin-bottom: 10px;
 }

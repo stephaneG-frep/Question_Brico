@@ -38,7 +38,7 @@ ob_start();
     </form>
 </div>
 <div class="connect">
-     <a href="connexion.php">Déja un compte?Connectez-vous</a>       
+     <a href="<?=ROOT?>/users/connexion">Déja un compte?Connectez-vous</a>       
 </div>
 
 <?php
