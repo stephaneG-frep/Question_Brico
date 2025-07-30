@@ -1,16 +1,18 @@
 <?php
 
-$pageTitle = "Page d'inscription";
+require_once "../models/Users.php";
+require_once "../core/config.php";
+require_once "../include/head.php";
+require_once "../include/navigation.php";
+require_once "../include/header.php";
 
-ob_start();
 
 ?>
 
 <div class="inscrip">
+<?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 
     <h2 class="h2">Inscription</h2>
-
-    <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 
     <form method="POST" action="" enctype="multipart/form-data">
         Votre Nom : 
@@ -38,11 +40,10 @@ ob_start();
     </form>
 </div>
 <div class="connect">
-     <a href="<?=ROOT?>/users/connexion">Déja un compte?Connectez-vous</a>       
+     <a href="views/user/connexion.php">Déja un compte?Connectez-vous</a>       
 </div>
 
 <?php
-$content = ob_get_clean();
-include('views/include/template.php');
+require_once "../include/footer.php";
 
 ?>

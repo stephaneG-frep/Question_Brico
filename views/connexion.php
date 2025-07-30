@@ -1,8 +1,10 @@
 <?php
 
-$pageTitle = "Page de connexion";
-
-ob_start();
+require_once "../models/Users.php";
+require_once "../core/config.php";
+require_once "../include/head.php";
+require_once "../include/navigation.php";
+require_once "../include/header.php";
 
 ?>
 
@@ -11,7 +13,7 @@ ob_start();
     
     <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 
-        <form method="POST">
+        <form method="POST" action="">
             Email :
             <input type="email" name="email" required >
             <br>
@@ -24,7 +26,6 @@ ob_start();
 </div>
 
 <?php
-$content = ob_get_clean();
-include('views/include/template.php');
+require_once "../include/footer.php";
 
 ?>

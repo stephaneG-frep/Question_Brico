@@ -9,6 +9,6 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title><?=$pageTitle?></title>
-        <link href="<?=ROOT?>/uploads/style.css" rel="stylesheet" />
+        <title>Question_Brico</title>
+        <link href="../uploads/style.css" rel="stylesheet" />
     </head>

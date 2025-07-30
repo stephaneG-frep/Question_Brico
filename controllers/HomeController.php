@@ -4,7 +4,9 @@ require_once "./Autoload.php";
 
 class HomeController{
      public function index(){
-        echo "Bienvenue sur question_brico";
+       
+      include('views/user/index.php');
+     
      }
 }
 

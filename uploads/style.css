@@ -68,6 +68,13 @@ input, label{
     margin-top: 12px;
     margin-bottom: 20px;
 }
+.erreurs{
+    display: grid;
+    place-items: center;
+    width: auto;
+    background-color: #920505;
+    color: aliceblue;    
+}
 
 
 
