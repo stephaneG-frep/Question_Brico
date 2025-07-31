@@ -1,12 +1,13 @@
 <?php
-
-require_once "../core/Database.php";
-
+//inclure la class de connexion a la bdd
+require_once "../db/Database.php";
 
 class Users{
 
     private $db;
+    //constructeur pour inicier la connexion 
     public function __construct(){
+        //appel a la méthode getInstance
         $this->db = Database::getInstance();
     }
     
@@ -39,7 +40,7 @@ class Users{
 
      //methode de vérification d'existance d'email 
      public function getUserByEmail($email) {
-        $query = 'SELECT id FROM users WHERE email = :email';
+        $query = 'SELECT id_user FROM users WHERE email = :email';
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':email', $email);
@@ -66,7 +67,7 @@ class Users{
 
 
     public function login($email, $password){
-        $query = "SELECT id, password FROM users WHERE email = :email";
+        $query = "SELECT id_user, password FROM users WHERE email = :email";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':email',$email);
@@ -75,7 +76,7 @@ class Users{
         $user = $req->fetch(PDO::FETCH_ASSOC);
         //vérifier le password 
         if($user && password_verify($password,$user['password'])){
-            return $user['id'];
+            return $user['id_user'];
         }
         return false;
     }

@@ -15,7 +15,7 @@ class Database{
             //classe PDO instancier l'objet avec les paramettres du constructeur
             $this->connexion = new PDO("mysql:host = $host; dbname=$database", $username, $password);
             //methode setAttribute pour la gestion des erreurs
-            $this->connexion->getAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch (PDOException $e){
             die("Erreur de connexion a la base de donnée!".$e->getMessage());
         }

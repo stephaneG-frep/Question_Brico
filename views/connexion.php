@@ -1,7 +1,7 @@
 <?php
 
 require_once "../models/Users.php";
-require_once "../core/config.php";
+require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/navigation.php";
 require_once "../include/header.php";
