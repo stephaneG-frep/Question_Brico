@@ -1,10 +1,33 @@
 <?php
+error_reporting(-1);
+ini_set("display_errors", 1);
+
 
 require_once "../models/Users.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/navigation.php";
 require_once "../include/header.php";
+
+if(isset($_POST['connexion']) ){
+    //récuperer les données du formulaire dans des variables
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    //instancier la class user
+    $user = new Users();
+    //appel a la méthode login(class Users)
+    $userId = $user->login($email,$password);
+
+    if($userId){
+        $_SESSION['id'] = $userId;
+        //$_SESSION['email'] = $userId['email'];   
+        header('location: ../public/index.php');
+        exit();
+
+    }else{
+        $message = "Email ou mot-de-passe invalide";
+    }
+}
 
 ?>
 

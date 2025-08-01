@@ -9,5 +9,6 @@
         <li><a href="../public/index.php">Accueil</a></li>
         <li><a href="../views/inscription.php">Inscription</a></li>
         <li><a href="../views/connexion.php">Connexion</a></li>
+        <li><a href="../views/question.php">Questions</a></li>
     </ul>
 </nav>
