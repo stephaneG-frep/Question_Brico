@@ -3,7 +3,6 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 
 
-
 require_once "../models/Users.php";
 require_once "../models/Image.php";
 require_once "../models/Question.php";

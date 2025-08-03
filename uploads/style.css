@@ -45,7 +45,7 @@ body{
 .inscrip{
     width: 50%;
     height: auto;
-    background-color: rgb(146, 185, 156);
+    background-color: rgba(146, 185, 156, 0.164);
     padding: 20px;
     margin-top: 80px;
     margin-bottom: 20px;
