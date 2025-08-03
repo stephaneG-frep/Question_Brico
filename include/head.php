@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 //se servire de la constante ROOT pour le chemin des fichiers
 
 

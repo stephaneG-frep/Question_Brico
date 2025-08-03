@@ -49,6 +49,16 @@ class Users{
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
+    //méthode de récupération de l'utilisateur par son id
+    public function getUserById($id_user){
+        $query = "SELECT id_user FROM users WHERE id_user = :id_user";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParams(':id_user',$id_user);
+        $req->execute();
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
       /**
      * Vérifie les credentials de connexion
      * @param string $email - Email de l'utilisateur

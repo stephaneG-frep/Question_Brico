@@ -3,17 +3,140 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 
 
+
 require_once "../models/Users.php";
-require_once "../db/config.php";
+require_once "../models/Image.php";
+require_once "../models/Question.php";
+//require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/navigation.php";
 require_once "../include/header.php";
+require_once "../include/token.php";
+
+if (isset($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+    $new_user = new Users();
+    $user = $new_user->getUserById($id_user);
+
+    $nom = $user['nom'];
+    $prenom = $user['prenom'];
+    $email = $user['email'];
+    $image = $user['photo_profil']; 
+    
+
+}else{
+    
+    header('Location: ../views/connexion.php');
+    exit();
+}
+
+if(isset($_POST['envoyer'])){
+
+    $theme = htmlspecialchars($_POST['theme']);
+    $question = htmlspecialchars($_POST['depart']);
+    
+    if(empty($_POST['theme'])){
+        $message = "Choisir un theme";
+    }elseif(empty($_POST['question'])){
+        $message = "Ecrir une petite question";
+    }else{
+
+        
+        $question = new Question();
+        $result = $question->registerQuestion($theme,$question,$id_user,$id_image,$id_question);
+
+        if(empty($_FILES['image']['name'])){
+            $message = "mettre des photo";
+        }else{
+            if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_1']['type'])){
+                //inclure le fichier token
+                require_once "fonction/token.php";
+                //donner un nom aléatoire
+                $photo_profil = $token."_".$_FILES['image_1']['name'];
+                //chemin de la photo stocker
+                $path = "../uploads/img/";
+                move_uploaded_file($_FILES['image_1']['tmp_name'],$path.$image_1);
+
+            }else{
+                $message = "Choisir le bon format(gif,png,jpg,jpeg)";
+            }
+
+            if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_2']['type'])){
+                //inclure le fichier token
+                require_once "fonction/token.php";
+                //donner un nom aléatoire
+                $photo_profil = $token."_".$_FILES['image_2']['name'];
+                //chemin de la photo stocker
+                $path = "../uploads/img/";
+                move_uploaded_file($_FILES['image_2']['tmp_name'],$path.$image_2);
+
+            }else{
+                $message = "Choisir le bon format(gif,png,jpg,jpeg)";
+            }
+        
+            if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_3']['type'])){
+                //inclure le fichier token
+                require_once "fonction/token.php";
+                //donner un nom aléatoire
+                $photo_profil = $token."_".$_FILES['image_3']['name'];
+                //chemin de la photo stocker
+                $path = "../uploads/img/";
+                move_uploaded_file($_FILES['image_3']['tmp_name'],$path.$image_3);
+
+            }else{
+                $message = "Choisir le bon format(gif,png,jpg,jpeg)";
+            }
+        
+            if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_4']['type'])){
+                //inclure le fichier token
+                require_once "fonction/token.php";
+                //donner un nom aléatoire
+                $photo_profil = $token."_".$_FILES['image_4']['name'];
+                //chemin de la photo stocker
+                $path = "../uploads/img/";
+                move_uploaded_file($_FILES['image_4']['tmp_name'],$path.$image_4);
+
+            }else{
+                $message = "Choisir le bon format(gif,png,jpg,jpeg)";
+            }
+        
+
+            if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_5']['type'])){
+                    //inclure le fichier token
+                    require_once "fonction/token.php";
+                    //donner un nom aléatoire
+                    $photo_profil = $token."_".$_FILES['image_5']['name'];
+                    //chemin de la photo stocker
+                    $path = "../uploads/img/";
+                    move_uploaded_file($_FILES['image_5']['tmp_name'],$path.$image_5);
+
+                }else{
+                    $message = "Choisir le bon format(gif,png,jpg,jpeg)";
+                }
+            
+    
+            $images = new Image();
+            $result = $images->registerImage($image_1,$image_2,$image_3,$image_4,$image_5,
+                                                $id_user,$id_question,$id_image);
+                                    
+
+            if($result){
+                header("location:../public/index.php");
+                exit();
+            }else{
+                $message = "Erreur lors du dépot de l'annonce";
+            }
+        }
+
+    }
 
 
-
-
+}
 
 ?>
+
+<h1>Bienvenue, <?php echo $user['prenom']." ". $user['nom']; ?>!</h1>    
+<p>Email: <?php echo $user['email']; ?></p>
 
 <div class="inscrip">
 <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
@@ -21,18 +144,22 @@ require_once "../include/header.php";
     <h2 class="h2">Votre question</h2>
 
     <form method="POST" action="" enctype="multipart/form-data">
-        Votre Nom : 
-        <input type="text" name="nom" id="nom" placeholder="votre nom">
-        <br>
-        Votre Prénom : 
-        <input type="text" name="prenom" id="prenom" placeholder="votre prénom">
-        <br>
-        Votre E-mail : 
-        <input type="email" name="email" id="email" placeholder="email: exemple@exemple.com">
-        <br>
-        Votre question : 
+       <br>
+        Quelle est le theme de bricolage : <br>
+    <select name="theme" id="pet-select">
+        <option  value="">--Quel est le theme de la quetion--</option>
+        <option name="theme" value="Voiture">01 :Electricitée</option>
+        <option name="theme" value="Moto">02 :Menuiserie</option>
+        <option name="theme" value="SUV">03 :Maçonnerie</option>
+        <option name="theme" value="Camionette">04 :Peinture</option>
+        <option name="theme" value="Camion">05 :Carrelage_moquette_parquette</option>
+        <option name="theme" value="Camping-car">06 :Electronique</option>
+        <option name="theme" value="Mini-Bus">07:Mecanique</option>
+    </select>
+        <br><br>
+        Votre question : <br>
         <textarea type="" name="question" id="question" placeholder="ma question"></textarea>
-        <br>
+        <br><br>
         Photo 1 :
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_1" id="image_1">
@@ -54,8 +181,8 @@ require_once "../include/header.php";
         <input type="file" name="image_5" id="image_5">
         <br> 
         Inscription : 
-        <input type="submit" name="inscription"
-                value="Créer un compte" >
+        <input type="submit" name="envoyer"
+                value="Envoyer la question" >
         <br>
 
     </form>
