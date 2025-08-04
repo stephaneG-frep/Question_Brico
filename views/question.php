@@ -32,26 +32,24 @@ if (isset($_SESSION['id_user'])) {
 if(isset($_POST['envoyer'])){
 
     $theme = htmlspecialchars($_POST['theme']);
-    $question = htmlspecialchars($_POST['depart']);
+    $question = htmlspecialchars($_POST['question']);
     
     if(empty($_POST['theme'])){
         $message = "Choisir un theme";
     }elseif(empty($_POST['question'])){
         $message = "Ecrir une petite question";
-    }else{
+    }else{      
+        //$question = new Question();
+        //$result = $question->registerQuestion($theme,$question,$id_user,$id_question);
 
-        
-        $question = new Question();
-        $result = $question->registerQuestion($theme,$question,$id_user,$id_image,$id_question);
-
-        if(empty($_FILES['image']['name'])){
+        if(empty($_FILES['image_1']['name']) || empty($_FILES['image_2']['name']) || empty($_FILES['image_3']['name'])
+            || empty($_FILES['image_4']['name']) || empty($_FILES['image_5']['name'])){   
             $message = "mettre des photo";
         }else{
             if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_1']['type'])){
                 //inclure le fichier token
-                require_once "fonction/token.php";
-                //donner un nom aléatoire
-                $photo_profil = $token."_".$_FILES['image_1']['name'];
+                               //donner un nom aléatoire
+                $image_1 = $token."_".$_FILES['image_1']['name'];
                 //chemin de la photo stocker
                 $path = "../uploads/img/";
                 move_uploaded_file($_FILES['image_1']['tmp_name'],$path.$image_1);
@@ -62,9 +60,8 @@ if(isset($_POST['envoyer'])){
 
             if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_2']['type'])){
                 //inclure le fichier token
-                require_once "fonction/token.php";
-                //donner un nom aléatoire
-                $photo_profil = $token."_".$_FILES['image_2']['name'];
+                                //donner un nom aléatoire
+                $image_2 = $token."_".$_FILES['image_2']['name'];
                 //chemin de la photo stocker
                 $path = "../uploads/img/";
                 move_uploaded_file($_FILES['image_2']['tmp_name'],$path.$image_2);
@@ -75,9 +72,9 @@ if(isset($_POST['envoyer'])){
         
             if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_3']['type'])){
                 //inclure le fichier token
-                require_once "fonction/token.php";
+               
                 //donner un nom aléatoire
-                $photo_profil = $token."_".$_FILES['image_3']['name'];
+                $image_3 = $token."_".$_FILES['image_3']['name'];
                 //chemin de la photo stocker
                 $path = "../uploads/img/";
                 move_uploaded_file($_FILES['image_3']['tmp_name'],$path.$image_3);
@@ -88,9 +85,9 @@ if(isset($_POST['envoyer'])){
         
             if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_4']['type'])){
                 //inclure le fichier token
-                require_once "fonction/token.php";
+                
                 //donner un nom aléatoire
-                $photo_profil = $token."_".$_FILES['image_4']['name'];
+                $image_4 = $token."_".$_FILES['image_4']['name'];
                 //chemin de la photo stocker
                 $path = "../uploads/img/";
                 move_uploaded_file($_FILES['image_4']['tmp_name'],$path.$image_4);
@@ -102,9 +99,9 @@ if(isset($_POST['envoyer'])){
 
             if(preg_match("#gif|jpeg|png|jpg#",$_FILES['image_5']['type'])){
                     //inclure le fichier token
-                    require_once "fonction/token.php";
+                    
                     //donner un nom aléatoire
-                    $photo_profil = $token."_".$_FILES['image_5']['name'];
+                    $image_5 = $token."_".$_FILES['image_5']['name'];
                     //chemin de la photo stocker
                     $path = "../uploads/img/";
                     move_uploaded_file($_FILES['image_5']['tmp_name'],$path.$image_5);
@@ -116,9 +113,11 @@ if(isset($_POST['envoyer'])){
     
             $images = new Image();
             $result = $images->registerImage($image_1,$image_2,$image_3,$image_4,$image_5,
-                                                $id_user,$id_question,$id_image);
+                                                $id_user);
                                     
-
+            $question = new Question();
+            $result = $question->registerQuestion($theme,$question,$id_user,$id_question);
+                                        
             if($result){
                 header("location:../public/index.php");
                 exit();
