@@ -115,10 +115,9 @@ if(isset($_POST['envoyer'])){
             $result = $images->registerImage($image_1,$image_2,$image_3,$image_4,$image_5,
                                                 $id_user);
                                     
-            $question = new Question();
-            $result = $question->registerQuestion($theme,$question,$id_user,$id_question);
-                                        
-            if($result){
+            $newQuestion = new Question();
+            $resultat = $newQuestion->registerQuestion($theme,$question,$id_user);                                   
+            if($resultat){
                 header("location:../public/index.php");
                 exit();
             }else{
@@ -146,17 +145,17 @@ if(isset($_POST['envoyer'])){
         Quelle est le theme de bricolage : <br>
     <select name="theme" id="pet-select">
         <option  value="">--Quel est le theme de la quetion--</option>
-        <option name="theme" value="Voiture">01 :Electricitée</option>
-        <option name="theme" value="Moto">02 :Menuiserie</option>
-        <option name="theme" value="SUV">03 :Maçonnerie</option>
-        <option name="theme" value="Camionette">04 :Peinture</option>
-        <option name="theme" value="Camion">05 :Carrelage_moquette_parquette</option>
-        <option name="theme" value="Camping-car">06 :Electronique</option>
-        <option name="theme" value="Mini-Bus">07:Mecanique</option>
+        <option name="theme" value="Electricite">01 :Electricite</option>
+        <option name="theme" value="Menuiserie">02 :Menuiserie</option>
+        <option name="theme" value="Maçonnerie">03 :Maçonnerie</option>
+        <option name="theme" value="Peinture">04 :Peinture</option>
+        <option name="theme" value="Sols">05 :Sols</option>
+        <option name="theme" value="Electronique">06 :Electronique</option>
+        <option name="theme" value="Mecanique">07:Mecanique</option>
     </select>
         <br><br>
         Votre question : <br>
-        <textarea type="" name="question" id="question" placeholder="ma question"></textarea>
+        <textarea type="text" name="question" id="question" placeholder="ma question"></textarea>
         <br><br>
         Photo 1 :
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
