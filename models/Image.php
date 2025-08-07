@@ -30,6 +30,20 @@ class iMAGE{
 
     }
 
+    public function imageByIdUser($id_user){
+        $query = "SELECT * FROM image WHERE id_user = :id_user";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_user',$id_user);
+        $req->execute();
+        $resultats = array();    
+        // Parcours des résultats de la requête et stockage dans le tableau $resultats
+            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+                $resultats[] = $ligne;
+            }  
+        return $resultats;  
+    }
+
 }
 
 
