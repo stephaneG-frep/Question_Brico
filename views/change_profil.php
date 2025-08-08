@@ -36,21 +36,19 @@ if(isset($_SESSION['id_user'])){
         
         }else{
             //valeurs du formulaire a mettre dans la méthode register
-            $nom = htmlspecialchars(check($_POST['nom']));
-            $prenom = htmlspecialchars(check($_POST['prenom']));
-            $email = htmlspecialchars(check($_POST['email']));
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $email = htmlspecialchars($_POST['email']);
               
             //condition si photo de profil ou non
             if(empty($_FILES['photo_profil']['name'])){
                 $photo_profil = "avatar_default.jpg";
             }else{
                 if(preg_match("#gif|jpeg|png|jpg#",$_FILES['photo_profil']['type'])){
-                    //inclure le fichier token
-                    require_once "fonction/token.php";
                     //donner un nom aléatoire
                     $photo_profil = $token."_".$_FILES['photo_profil']['name'];
                     //chemin de la photo stocker
-                    $path = "img/photo_profil/";
+                    $path = "../uploads/photo_profil/";
                     move_uploaded_file($_FILES['photo_profil']['tmp_name'],$path.$photo_profil);
     
                 }else{
@@ -71,7 +69,7 @@ if(isset($_SESSION['id_user'])){
                 $result = $user->updateUser($id_user,$nom,$prenom,$email,$photo_profil);
                                         
                 if($result){
-                    header("location:index.php");
+                    header("location:../public/index.php");
                     //exit();
             }else{
                 $message = "Erreur lors de l'inscription";
