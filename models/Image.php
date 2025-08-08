@@ -44,6 +44,30 @@ class iMAGE{
         return $resultats;  
     }
 
+    public function getAllImage(){
+        //récuperer les toutes annonces     
+       // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
+       $query = "SELECT i.id_image, i.image_1, i.image_2, i.image_3, i.image_4, i.image_5, i.id_user as id_user, 
+                       u.nom,u.prenom,u.email,u.photo_profil FROM image i
+                    JOIN users u ON i.id_user = u.id_user ORDER BY i.id_image DESC";
+   
+       // Obtention de la connexion à la base de données
+           $dbConnexion = $this->db->getConnexion();    
+       // Préparation de la requête SQL
+           $req = $dbConnexion->prepare($query);   
+       // Exécution de la requête SQL
+           $req->execute();    
+       // Initialisation d'un tableau pour stocker les résultats de la requête
+           $resultats = array();    
+       // Parcours des résultats de la requête et stockage dans le tableau $resultats
+           while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+               $resultats[] = $ligne;
+           }    
+       // Retour du tableau contenant tous les résultats
+           return $resultats;
+       }
+
+
 }
 
 

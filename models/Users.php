@@ -49,6 +49,24 @@ class Users{
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
+    //méthode de récupération des emails pour changer le profil
+    public function getUserByEmailId($id_user,$email){
+        //requete 
+        $query = "SELECT * FROM users WHERE email = :email AND id_user != :id_user";
+        //connexion 
+        $dbConnexion = $this->db->getConnexion();
+        //preparer la requete
+        $req = $dbConnexion->prepare($query);
+        //lier les parametter
+        $req->bindParam('email',$email);
+        $req->bindParam('id_user',$id_user);
+        //executer la requete
+        $req->execute();
+        //retourner un tableau associatif
+        return $req->fetch(PDO::FETCH_ASSOC);
+        
+    }
+
     //méthode de récupération de l'utilisateur par son id
     public function getUserById($id_user){
         $query = "SELECT * FROM users WHERE id_user = :id_user";
@@ -89,6 +107,22 @@ class Users{
             return $user['id_user'];
         }
         return false;
+    }
+
+    public function updateUser($id_user, $nom, $prenom, $email, $photo_profil){
+        $query = "UPDATE users SET nom=:nom, prenom=:prenom, email=:email, photo_profil=:photo_profil,
+                                  role=:role WHERE id_user=:id_user";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $role = 'user';
+        $req->bindParam(':nom',$nom);
+        $req->bindParam(':prenom',$prenom);
+        $req->bindParam(':email', $email);
+        $req->bindParam(':photo_profil',$photo_profil);
+        $req->bindParam(':role',$role);
+        $req->bindParam(':id_user',$id_user);
+        $req->execute();
+        return $req->rowCount() > 0;
     }
 
     

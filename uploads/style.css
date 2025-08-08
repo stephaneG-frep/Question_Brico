@@ -7,9 +7,10 @@ body{
     display: grid;
     place-items: center;
     margin: auto;
-    background-image: url('img/background.jpg');
-    background-size: cover;
-    color: rgb(2, 82, 29);
+    /*background-image: url('img/background.jpg');
+    background-size: cover;*/
+    background-color: #555;
+    color: rgb(181, 228, 12);
     text-align: center;
     align-items: center;
     width: 100%;

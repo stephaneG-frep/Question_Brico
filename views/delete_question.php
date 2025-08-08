@@ -13,15 +13,15 @@ require_once "../include/header.php";
 //require_once "../include/token.php";
 
 
-$annonce = false;
+$question = false;
 $errors = [];
 $messages = [];
-if (isset($_GET["id_question"])) {
+if (isset($_GET["id_user"])) {
     $new_question = new Question();
-    $question =  $new_question->questionById( (int)$_GET["id_question"]);
+    $question =  $new_question->questionById( (int)$_GET["id_user"]);
 }
 if ($question) {
-    if ($question = $new_question->deleteQuestion( $_GET["id_question"])) {
+    if ($question = $new_question->deleteQuestion( $_GET["id_user"])) {
         $messages[] = "L'annonce a bien été supprimée";
     } else {
         $errors[] = "Une erreur s'est produite lors de la suppression";

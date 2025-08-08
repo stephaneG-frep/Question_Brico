@@ -39,8 +39,6 @@ if (isset($_SESSION['id_user'])) {
             <section class="item-1">
                 <div class="item-1a">
                     <img class="photo_profil" src="../uploads/photo_profil/'.$image.'" alt="photo de profil">  
-                    <br>
-                    <img class="photo_profil" src="/'.$image.'" alt="photo de profil"> 
                 </div>
                 <p>Nom : '.$nom.'</p>
                 <hp>Prénom : '.$prenom.'</p>
@@ -60,19 +58,22 @@ if (isset($_SESSION['id_user'])) {
                 <p><span class="theme">Le theme: '.$question['theme'].'</span></p>
                <p class="description">La question:<br> '.$question['question'].'</p>';
 
-                    foreach($images as $image): {  
+                foreach($images as $image): {  
                         echo'
-                <div>
-                <p>Les photos de la question: </p>
-                    
+                <div class="dashboard-container">
+                <p>Les photos de la question: </p>                
                     <img src="../uploads/img/'.$image['image_1'].'"  class="question_photo">
+                    <img src="../uploads/img/'.$image['image_2'].'"  class="question_photo">
+                    <img src="../uploads/img/'.$image['image_3'].'"  class="question_photo">
+                    <img src="../uploads/img/'.$image['image_4'].'"  class="question_photo">
+                    <img src="../uploads/img/'.$image['image_5'].'"  class="question_photo">
                 </div> 
 
             </div>
-        </div>'; 
-                    } endforeach; 
+        </div> ';
+                   } endforeach; 
         echo'
-        <a href="delete_question.php" class="">supprimer la question</a>
+        <a href="change_profil.php" class="">Changer le profil</a>
     </div>';  
         } endforeach;
 

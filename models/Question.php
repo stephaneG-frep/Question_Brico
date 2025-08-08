@@ -59,8 +59,28 @@ class Question{
     }
 
     public function getAllQuestion(){
-        $query = "";
+     //récuperer les toutes annonces     
+    // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
+    $query = "SELECT q.id_question, q.theme, q.question, q.id_user as id_user, 
+                    u.nom,u.prenom,u.email,u.photo_profil FROM question q
+                 JOIN users u ON q.id_user = u.id_user ORDER BY q.id_question DESC";
+
+    // Obtention de la connexion à la base de données
+        $dbConnexion = $this->db->getConnexion();    
+    // Préparation de la requête SQL
+        $req = $dbConnexion->prepare($query);   
+    // Exécution de la requête SQL
+        $req->execute();    
+    // Initialisation d'un tableau pour stocker les résultats de la requête
+        $resultats = array();    
+    // Parcours des résultats de la requête et stockage dans le tableau $resultats
+        while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+            $resultats[] = $ligne;
+        }    
+    // Retour du tableau contenant tous les résultats
+        return $resultats;
     }
+
 
     public function deleteQuestion($id_question){
         $query = "DELETE FROM question WHERE id_question =:id_question";
