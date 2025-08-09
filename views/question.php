@@ -177,7 +177,7 @@ if(isset($_POST['envoyer'])){
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_5" id="image_5">
         <br> 
-        Inscription : 
+        Poser la question : 
         <input type="submit" name="envoyer"
                 value="Envoyer la question" >
         <br>

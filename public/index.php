@@ -50,7 +50,25 @@ echo'
 </div>';  
 } endforeach;
 
+     echo 
+     '
+    <div class="dashboard-container" >
+        <div class="item-1a">
+            <img class="photo_profil" src="../uploads/photo_profil/'.$question['photo_profil'].'" alt="photo de profil">  
+        </div>
+            <p>Voici une reponse de : </p>
+           <p>Nom : '.$question['nom'].'</p>
+        <hp>Prénom : '.$question['prenom'].'</p>
+        <hp>Email : '.$question['email'].'</p> 
+        <div class="annonce-details">
+            <p><span class="theme">Le theme: '.$question['theme'].'</span></p>
+        <p class="description">La reponse :<br> '.$question['question'].'</p>
+        </div>
 
+        <p><a href="../views/reponse.php">Cliquer pour repondre</a></p>
+
+    </div>   
+     ';
 
 require_once "../include/footer.php";
 ?>
