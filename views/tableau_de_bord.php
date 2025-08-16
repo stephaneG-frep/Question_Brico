@@ -46,7 +46,8 @@ if (isset($_SESSION['id_user'])) {
                 <br>
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
                 <a class="dashboard" href="deconnexion.php">Se déconnecter</a>
-            </section>
+                <a class="dashboard" href="change_profil.php">Changer le profil</a>
+                </section>
     
         </div> <br><br>'; 
        
@@ -68,12 +69,12 @@ if (isset($_SESSION['id_user'])) {
                     <img src="../uploads/img/'.$image['image_4'].'"  class="question_photo">
                     <img src="../uploads/img/'.$image['image_5'].'"  class="question_photo">
                 </div> 
-
-            </div>
-        </div> ';
-                   } endforeach; 
-        echo'
-        <a href="change_profil.php" class="">Changer le profil</a>
+                    <a class="dashboard" href="delete_question.php?id='.$question['id_question'].'">
+                    Supprimer la quetion </a>
+            </div>';
+                } endforeach; 
+                echo'
+        </div>        
     </div>';  
         } endforeach;
 
@@ -81,8 +82,8 @@ if (isset($_SESSION['id_user'])) {
 } else { 
     header('Location: ../views/connexion.php');
     exit();
-}   
+}  
 
-    
+
 require_once "../include/footer.php";
 ?>

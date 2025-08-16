@@ -109,6 +109,29 @@ class Users{
         return false;
     }
 
+    public function getAllUser(){
+        //récuperer les toutes annonces     
+       // Requête pour récupérer toutes les annonces avec les infos des utilisateur
+        $query = "SELECT u.nom, u.prenom, u.email, u.photo_profil as id_user,
+                         q.id_question, q.theme, q.question FROM users u
+                         JOIN question q ON u.id_user = q.id_user ORDER BY u.id_user DESC";
+       // Obtention de la connexion à la base de données
+           $dbConnexion = $this->db->getConnexion();    
+       // Préparation de la requête SQL
+           $req = $dbConnexion->prepare($query);   
+       // Exécution de la requête SQL
+           $req->execute();    
+       // Initialisation d'un tableau pour stocker les résultats de la requête
+           $resultats = array();    
+       // Parcours des résultats de la requête et stockage dans le tableau $resultats
+           while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+               $resultats[] = $ligne;
+           }    
+       // Retour du tableau contenant tous les résultats
+           return $resultats;
+       }
+   
+
     public function updateUser($id_user, $nom, $prenom, $email, $photo_profil){
         $query = "UPDATE users SET nom=:nom, prenom=:prenom, email=:email, photo_profil=:photo_profil,
                                   role=:role WHERE id_user=:id_user";

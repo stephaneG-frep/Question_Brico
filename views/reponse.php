@@ -2,7 +2,6 @@
 error_reporting(-1);
 ini_set("display_errors", 1);
 
-
 require_once "../models/Users.php";
 require_once "../models/Image.php";
 require_once "../models/Question.php";
@@ -17,41 +16,40 @@ if (isset($_SESSION['id_user'])) {
     $new_user = new Users();
     $user = $new_user->getUserById($id_user);
 
-   
+    //$id_question = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    //$new_question = new Question();
+   // $question = $new_question->questionById($id_question);
+
     $nom = $user['nom'];
     $prenom = $user['prenom'];
     $email = $user['email'];
     $image = $user['photo_profil']; 
-    
-
-}else{
-    
+            
+}else{   
     header('Location: ../views/connexion.php');
     exit();
 }
-
-if(isset($_POST['envoyer'])){
-    
+if(isset($_POST['envoyer']) || isset($_GET['id_question'])){
     $reponse = htmlspecialchars($_POST['reponse']);
 
     if(empty($_POST['reponse'])){
         $message = "ecrire une reponse";
-
-        $new_reponse = new Reponse();
-        $reponse = $new_reponse->reponseByIdQuestion($id_user,$id_question);
         
+        $new_reponse = new Reponse();
+        $result = $new_reponse->registerReponse($reponse,$create_date,$id_user,$id_question);
+       
         if($resultat){
             header("location:../public/index.php");
             exit();
         }
-    }else {
-        $message = "Erreur de dépot de la reponse";
+        }else {
+            $message = "Erreur de dépot de la reponse";
     }
-    
+
 }
 
+
 ?>
-  
 
 <h1>Bienvenue, <?php echo $user['prenom']." ". $user['nom']; ?>!</h1>    
 <p>Email: <?php echo $user['email']; ?></p>
@@ -63,11 +61,11 @@ if(isset($_POST['envoyer'])){
 
     <form method="POST" action="" enctype="multipart/form-data">
        <br>
-     
         Votre réponse : <br>
         <textarea type="text" name="reponse" id="reponse" placeholder="ma reponse"></textarea>
         <br><br>
         Repondre a la question : 
+
         <input type="submit" name="envoyer"
             value="Envoyer la reponse" >
         <br>

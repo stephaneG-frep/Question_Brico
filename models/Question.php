@@ -1,6 +1,7 @@
 <?php
 
 require_once "../db/Database.php";
+require_once "../models/Image.php";
 
 class Question{
 
@@ -12,14 +13,15 @@ class Question{
     }
 
 
-    public function registerQuestion($theme,$question,$id_user){
+    public function registerQuestion($theme,$question,$create_date,$id_user){
 
-        $query = "INSERT INTO question(theme,question,id_user)
-                   VALUES(:theme,:question,:id_user)";
+        $query = "INSERT INTO question(theme,question,create_date,id_user)
+                   VALUES(:theme,:question,NOW(),:id_user)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':theme',$theme);
         $req->bindParam(':question',$question);
+        $req->bind_result(':create_date',$create_date);
         $req->bindParam(':id_user',$id_user);
         //$req->bindParam(':id_question',$id_question);
         $req->execute();
@@ -43,7 +45,7 @@ class Question{
 
     public function questionById($id_question){
         // Définition de la requête SQL pour récupérer une annonce par son identifiant
-        $query = "SELECT * FROM annonce WHERE id_question = :id_question";   
+        $query = "SELECT * FROM question WHERE id_question = :id_question";   
         // Obtention de la connexion à la base de données
         $dbConnexion = $this->db->getConnexion();   
         // Préparation de la requête SQL

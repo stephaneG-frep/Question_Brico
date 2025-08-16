@@ -11,7 +11,7 @@ require_once "../include/head.php";
 require_once "../include/navigation.php";
 require_once "../include/header.php";
 
-
+  
 $question = new Question();
 $questions = $question->getAllQuestion();
 
@@ -25,52 +25,42 @@ foreach($questions as $question):{
     <div class="item-1a">
             <img class="photo_profil" src="../uploads/photo_profil/'.$question['photo_profil'].'" alt="photo de profil">  
     </div>
-        <p>Nom : '.$question['nom'].'</p>
-        <hp>Prénom : '.$question['prenom'].'</p>
-        <hp>Email : '.$question['email'].'</p> 
+     <p><span>Une question de '.$question['nom'].' '.$question['prenom'].' '.$question['email'].' </span></p>
+       
     <div class="annonce-details">
-        <p><span class="theme">Le theme: '.$question['theme'].'</span></p>
-       <p class="description">La question:<br> '.$question['question'].'</p>';
+        <p><span class="theme">Sur le theme de : '.$question['theme'].'</span></p>
+       <p class="description">--_--<br> '.$question['question'].'<br> --_--</p>';
 
         foreach($images as $image): {  
                 echo'
         <div class="dashboard-container">
-        <p>Les photos de la question: </p>                
+        <p>Quelques photos pour illustrer la question : </p>                
             <img src="../uploads/img/'.$image['image_1'].'"  class="question_photo">
             <img src="../uploads/img/'.$image['image_2'].'"  class="question_photo">
             <img src="../uploads/img/'.$image['image_3'].'"  class="question_photo">
             <img src="../uploads/img/'.$image['image_4'].'"  class="question_photo">
             <img src="../uploads/img/'.$image['image_5'].'"  class="question_photo">
-        </div> 
+        </div> ';
+        
+        if(isset($_SESSION['id_user'])){
+        
+            echo 
+            '<div class="">';?>              
+               <p><a href="../views/reponse.php?id=<?=$question['id_question']?>">
+                Répondre sur le thème : <?php echo $question['theme']; ?></a></p> 
+            <?php
+            echo '
+            </div>';
+           }
+           echo '
 
     </div>
 </div> ';
            } endforeach; 
-echo'
-</div>';  
+    echo'
+    </div>';  
 } endforeach;
-
-     echo 
-     '
-    <div class="dashboard-container" >
-        <div class="item-1a">
-            <img class="photo_profil" src="../uploads/photo_profil/'.$question['photo_profil'].'" alt="photo de profil">  
-        </div>
-            <p>Voici une reponse de : </p>
-           <p>Nom : '.$question['nom'].'</p>
-        <hp>Prénom : '.$question['prenom'].'</p>
-        <hp>Email : '.$question['email'].'</p> 
-        <div class="annonce-details">
-            <p><span class="theme">Le theme: '.$question['theme'].'</span></p>
-        <p class="description">La reponse :<br> '.$question['question'].'</p>
-        </div>
-
-        <p><a href="../views/reponse.php">Cliquer pour repondre</a></p>
-
-    </div>   
-     ';
-
+   //$id_quesion = isset($_GET['id_question']) ? (int)$_GET['id_question'] : 0;
+   
 require_once "../include/footer.php";
 ?>
-
-

@@ -110,13 +110,11 @@ if(isset($_POST['envoyer'])){
                     $message = "Choisir le bon format(gif,png,jpg,jpeg)";
                 }
             
-    
+            $newQuestion = new Question();
+            $resultat = $newQuestion->registerQuestion($theme,$question,$create_date,$id_user);  
             $images = new Image();
             $result = $images->registerImage($image_1,$image_2,$image_3,$image_4,$image_5,
-                                                $id_user);
-                                    
-            $newQuestion = new Question();
-            $resultat = $newQuestion->registerQuestion($theme,$question,$id_user);                                   
+                                                $id_user);                            
             if($resultat){
                 header("location:../public/index.php");
                 exit();
