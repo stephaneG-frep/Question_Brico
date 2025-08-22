@@ -16,10 +16,6 @@ if (isset($_SESSION['id_user'])) {
     $new_user = new Users();
     $user = $new_user->getUserById($id_user);
 
-    //$id_question = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    //$new_question = new Question();
-   // $question = $new_question->questionById($id_question);
-
     $nom = $user['nom'];
     $prenom = $user['prenom'];
     $email = $user['email'];
@@ -29,51 +25,30 @@ if (isset($_SESSION['id_user'])) {
     header('Location: ../views/connexion.php');
     exit();
 }
-if(isset($_POST['envoyer']) || isset($_GET['id_question'])){
-    $reponse = htmlspecialchars($_POST['reponse']);
 
-    if(empty($_POST['reponse'])){
-        $message = "ecrire une reponse";
-        
-        $new_reponse = new Reponse();
-        $result = $new_reponse->registerReponse($reponse,$create_date,$id_user,$id_question);
-       
-        if($resultat){
-            header("location:../public/index.php");
-            exit();
-        }
-        }else {
-            $message = "Erreur de dépot de la reponse";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $reponse = $_POST['reponse'];
+    $id_question = $_POST['id_question'];
+    $id_user = $_SESSION['id_user'];
+
+    $new_reponse = new Reponse();
+
+    if ($reponse = $new_reponse->registerReponse($reponse, $id_user, $id_question)) {
+        echo "Réponse ajoutée avec succès !";
+    } else {
+        echo "Erreur lors de l'ajout de la réponse.";
     }
-
 }
-
-
 ?>
-
-<h1>Bienvenue, <?php echo $user['prenom']." ". $user['nom']; ?>!</h1>    
-<p>Email: <?php echo $user['email']; ?></p>
-
-<div class="inscrip">
 <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
+<h2 class="h2">Votre reponse</h2>
 
-    <h2 class="h2">Votre reponse</h2>
-
-    <form method="POST" action="" enctype="multipart/form-data">
-       <br>
-        Votre réponse : <br>
-        <textarea type="text" name="reponse" id="reponse" placeholder="ma reponse"></textarea>
-        <br><br>
-        Repondre a la question : 
-
-        <input type="submit" name="envoyer"
-            value="Envoyer la reponse" >
-        <br>
-    </form>
-</div>
-<div class="connect">
-     <a href="../views/connexion.php">Déja un compte?Connectez-vous</a>       
-</div>
+<form method="post">
+    Réponse : <textarea name="reponse" required></textarea><br>
+    <input type="hidden" name="id_question" value="<?= htmlspecialchars($_GET['id_question']) ?>">
+    <button type="submit">Répondre</button>
+</form>
 
 <?php
 require_once "../include/footer.php";

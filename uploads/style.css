@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
 body{
     display: grid;
     place-items: center;
@@ -115,63 +117,56 @@ h2 {
     margin-right: 15px;
 }
 
-/* index accueil 
-question-card {
-    border: 1px solid #ddd;
+
+
+/* question accueil */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+.question {
+    background-color: white;
+    border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
-    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 .question-images {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin: 10px 0;
-    overflow-x: auto;
 }
 .question-images img {
-    max-height: 100px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 5px;
+}
+.question-theme {
+    font-weight: bold;
+    color: #333;
+}
+.question-text {
+    margin: 10px 0;
+}
+.question-author {
+    color: #666;
+    font-size: 0.9em;
+}
+.reply-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
     border-radius: 4px;
-}
-.response-form {
-    margin-top: 10px;
-    display: ;
-}
-*/
-
-/* question accueil */
-.content-accueil{
+    cursor: pointer;
+    text-decoration: none;
     display: inline-block;
-    background: rgb(9, 190, 39);
-    border-radius: 8px;
-    padding: 25px;
-    width: 350px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
 }
-.container-question{
-    max-width: 300px;
-    height: auto;
-    margin: 50px auto;
-    background-color: #591de6;
-    color: aliceblue;
-    padding: 20px 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.reply-button:hover {
+    background-color: #45a049;
 }
-.container-reponse{
-    max-width: 300px;
-    height: auto;
-    margin: 50px auto;
-    background-color: #2cbe07;
-    color: rgb(220, 241, 96);
-    padding: 20px 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
 /* p h1 h2 ext...*/
 h1 {
     display: grid;

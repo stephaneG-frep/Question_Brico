@@ -6,61 +6,69 @@ ini_set("display_errors", 1);
 require_once "../models/Users.php";
 require_once "../models/Question.php";
 require_once "../models/Image.php";
+require_once "../models/Reponse.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/navigation.php";
 require_once "../include/header.php";
 
-  
+
 $question = new Question();
-$questions = $question->getAllQuestion();
+$questions = $question->getQuestionAndImage();
+?>
+<div class="container">
+        <h2>Questions récentes</h2>
 
-$image = new Image();
-$images = $image->getAllImage();
+        <?php
 
+        if (empty($questions)) {
+            echo "<p>Aucune question trouvée.</p>";
+        } else {
+            foreach ($questions as $question) {
+                echo '<div class="question">';
+                echo '<div class="question-theme">' . htmlspecialchars($question['theme']) . '</div>';
+                echo '<div class="question-text">' . nl2br(htmlspecialchars($question['question'])) . '</div>';
 
-foreach($questions as $question):{ 
-        echo '
-<div class="dashboard-container">  
-    <div class="item-1a">
-            <img class="photo_profil" src="../uploads/photo_profil/'.$question['photo_profil'].'" alt="photo de profil">  
+                // Afficher les images si elles existent
+                if (!empty($question['image_1']) || !empty($question['image_2']) || !empty($question['image_3']) || !empty($question['image_4']) || !empty($question['image_5'])) {
+                    echo '<div class="question-images">';
+                    for ($i = 1; $i <= 5; $i++) {
+                        $image = $question["image_$i"];
+                        if (!empty($image)) {
+                            echo '<img src="../uploads/img/' . htmlspecialchars($image) . '" alt="Image question">';
+                        }
+                    }
+                    echo '</div>';
+                }
+
+                echo '<div class="question-author">Posée par : ' . htmlspecialchars($question['prenom'] . ' ' . $question['nom']) . '</div>';
+
+                // Bouton Répondre (lien vers la page de réponse)
+                echo '<a href="../views/reponse.php?id_question=' . $question['id_question'] . '" class="reply-button">Répondre</a>';
+
+                // Afficher les réponses existantes
+                $reponse = new Reponse();
+                $reponses = $reponse->getReponsesForQuestion($question['id_question']);
+
+                if (!empty($reponses)) {
+                    echo '<div class="reponses">';
+                    foreach ($reponses as $reponse) {
+                        echo '<div class="reponse">';
+                        echo '<p><strong>' . htmlspecialchars($reponse['prenom'] . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</p>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+
+                echo '</div>';
+            }
+        }
+        ?>
     </div>
-     <p><span>Une question de '.$question['nom'].' '.$question['prenom'].' '.$question['email'].' </span></p>
-       
-    <div class="annonce-details">
-        <p><span class="theme">Sur le theme de : '.$question['theme'].'</span></p>
-       <p class="description">--_--<br> '.$question['question'].'<br> --_--</p>';
 
-        foreach($images as $image): {  
-                echo'
-        <div class="dashboard-container">
-        <p>Quelques photos pour illustrer la question : </p>                
-            <img src="../uploads/img/'.$image['image_1'].'"  class="question_photo">
-            <img src="../uploads/img/'.$image['image_2'].'"  class="question_photo">
-            <img src="../uploads/img/'.$image['image_3'].'"  class="question_photo">
-            <img src="../uploads/img/'.$image['image_4'].'"  class="question_photo">
-            <img src="../uploads/img/'.$image['image_5'].'"  class="question_photo">
-        </div> ';
-        
-        if(isset($_SESSION['id_user'])){
-        
-            echo 
-            '<div class="">';?>              
-               <p><a href="../views/reponse.php?id=<?=$question['id_question']?>">
-                Répondre sur le thème : <?php echo $question['theme']; ?></a></p> 
-            <?php
-            echo '
-            </div>';
-           }
-           echo '
 
-    </div>
-</div> ';
-           } endforeach; 
-    echo'
-    </div>';  
-} endforeach;
-   //$id_quesion = isset($_GET['id_question']) ? (int)$_GET['id_question'] : 0;
-   
+
+
+ <?php  
 require_once "../include/footer.php";
 ?>

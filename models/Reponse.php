@@ -11,24 +11,16 @@ class Reponse{
         $this->db = Database::getInstance();
     }
 
-    public function registerReponse($reponse,$create_date,$id_user,$id_question){
-
-        $query = "INSERT INTO reponse(reponse,create_date,id_user,id_question)
-                 VALUES(:reponse,NOW(),:id_user,:id_question)";
+    public function registerReponse($reponse,$id_user,$id_question){
+        $query = "INSERT INTO reponse(reponse,id_user,id_question)
+                 VALUES(:reponse, :id_user, :id_question)";
         $dbConnexion = $this->db->getConnexion();
-        $req = $dbConnexion->prepare($query);       
-        $req->bindParam(':reponse',$reponse);
-        $req->bind_result(':create_date',$create_date);
-        $req->bindParam(':id_user',$id_user);
-        $req->bindParam(':id_question',$id_question);
-        $req->execute();
-        $resultats = array();    
-        // Parcours des résultats de la requête et stockage dans le tableau $resultats
-            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-                $resultats[] = $ligne;
-            } 
-        return $resultats;   
-        
+        $req = $dbConnexion->prepare($query); 
+        $req->bindParam(':reponse', $reponse, PDO::PARAM_STR);
+        $req->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+        $req->bindParam(':id_question', $id_question, PDO::PARAM_INT);      
+        return $req->execute(); 
+          
     }
 
     public function reponseByIdQuestion($id_user, $id_question){
@@ -61,22 +53,19 @@ class Reponse{
         return $resultats;   
     }
 
-    public function getResponsesForQuestion($id_question) {
+    public function getReponsesForQuestion($id_question) {
        
-        $query = "SELECT r.*, u.username FROM reponse r
-                  JOIN user u ON r.id_user = u.id_user
-                 WHERE r.id_question = :id_question ORDER BY ASC";
+        $query = "SELECT reponse.*, users.nom, users.prenom
+                  FROM reponse
+                    JOIN users ON reponse.id_user = users.id_user
+                    WHERE id_question = :id_question";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':id_question',$id_question);
-        $req->execute([':questionId' => (int)$id_question]);
+        $req->execute();
         return $req->fetchAll();
     
     }
-    
-
-
-
 
 
 }
