@@ -6,6 +6,7 @@ ini_set("display_errors", 1);
 require_once "../models/Users.php";
 require_once "../models/Image.php";
 require_once "../models/Question.php";
+require_once "../models/Reponse.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/navigation.php";
@@ -21,15 +22,11 @@ if (isset($_SESSION['id_user'])) {
 
     $new_question = new Question();
     $questions = $new_question->questionByIdUser($id_user);
-
-    $new_image = new Image();
-    $images = $new_image->imageByIdUser($id_user);
-
+    //$questions = $new_question->questionByIdUser($id_user);
     $nom = $user['nom'];
     $prenom = $user['prenom'];
     $email = $user['email'];
     $image = $user['photo_profil'];
-
 
         echo '
 
@@ -49,41 +46,83 @@ if (isset($_SESSION['id_user'])) {
                 <a class="dashboard" href="change_profil.php">Changer le profil</a>
                 </section>
     
-        </div> <br><br>'; 
-       
-        foreach($questions as $question):{ 
-                echo '
-        <div class="dashboard-container">  
-            <P>Vos question: </p>
-            <div class="annonce-details">
-                <p><span class="theme">Le theme: '.$question['theme'].'</span></p>
-               <p class="description">La question:<br> '.$question['question'].'</p>';
+        </div> 
+    </div>';
+?>
+    <div class="container">
+        <h2 class="dashboard-title">Mes questions</h2>
+        <br><br>
 
-                foreach($images as $image): {  
-                        echo'
-                <div class="dashboard-container">
-                <p>Les photos de la question: </p>                
-                    <img src="../uploads/img/'.$image['image_1'].'"  class="question_photo">
-                    <img src="../uploads/img/'.$image['image_2'].'"  class="question_photo">
-                    <img src="../uploads/img/'.$image['image_3'].'"  class="question_photo">
-                    <img src="../uploads/img/'.$image['image_4'].'"  class="question_photo">
-                    <img src="../uploads/img/'.$image['image_5'].'"  class="question_photo">
-                </div> 
-                    <a class="dashboard" href="delete_question.php?id='.$question['id_question'].'">
-                    Supprimer la quetion </a>
-            </div>';
-                } endforeach; 
-                echo'
-        </div>        
-    </div>';  
-        } endforeach;
+<?php
+$question = new Question();
+$questions = $question->getQuestionAndImage();
 
-                
+    if (empty($questions)) {
+        echo "<p>Vous n'avez posé aucune question.</p>";
+    } else {
+        foreach ($questions as $question) {
+            echo '<div class="question">';
+                echo '<div class="question-theme">' . htmlspecialchars($question['theme']) . '</div>';
+                echo '<div class="question-text">' . nl2br(htmlspecialchars($question['question'])) . '</div>';
+
+            // Afficher les images si elles existent
+            if (!empty($question['image_1']) || !empty($question['image_2']) || 
+                !empty($question['image_3']) || !empty($question['image_4']) || 
+                !empty($question['image_5'])) {
+                echo '<div class="question-images">';
+                for ($i = 1; $i <= 5; $i++) {
+                    $image = $question["image_$i"];
+                    if (!empty($image)) {
+                        echo '<img src="../uploads/img/' . htmlspecialchars($image) . '" alt="Image question">';
+                    }
+                }
+                echo '</div>';
+            }
+            echo '<div class="question-author">Posée par : ' . htmlspecialchars($question['prenom'] . ' ' . $question['nom']) . '</div><br>';
+
+            // Boutons d'action
+           // $id_user = $_SESSION['id_user'];
+            $new_question = new Question();
+            $questions = $new_question->questionByIdUser($id_user);
+                echo '<div class="action-buttons">';
+                    echo '<p><a href="#" class="delete-button" onclick="confirmDelete(' . $question['id_question'] . ')">Supprimer</a></p>';
+          
+
+       echo'  
+        <h2 class="dashboard-title">Les Reponses</h2>
+          <br><br>';
+         // Afficher les réponses existantes
+            $reponse = new Reponse();
+            $reponses = $reponse->getReponsesForQuestion($question['id_question']);
+            if (!empty($reponses)) {
+                echo '<div class="reponses">';
+                foreach ($reponses as $reponse) {
+                    echo '<div class="reponse">';
+                        echo '<p><strong>' . htmlspecialchars($reponse['prenom'] . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</p>';
+                    echo '</div>';
+                }
+                echo'</div>';
+             }
+            }
+        }
+                echo'</div';            
+            echo'
+        </div>';
+
+           
+               
 } else { 
     header('Location: ../views/connexion.php');
     exit();
 }  
-
-
+?>
+<script>
+function confirmDelete(id_question) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cette question ?")) {
+        window.location.href = "delete_question.php?id_question=" + id_question;
+    }
+}
+</script>
+<?php
 require_once "../include/footer.php";
 ?>

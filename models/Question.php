@@ -29,17 +29,30 @@ class Question{
     }
 
     public function questionByIdUser($id_user){
-        $query = "SELECT * FROM question WHERE id_user = :id_user";
+        $query = "SELECT question.*, users.nom, users.prenom, image.*
+                    FROM question
+                    JOIN users ON question.id_user = users.id_user
+                    LEFT JOIN image ON question.id_question = image.id_image
+                    WHERE question.id_user = :id_user
+                    ORDER BY question.id_question DESC";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
-        $req->bindParam(':id_user',$id_user);
+        $req->bindParam(':id_user',$id_user,PDO::PARAM_INT);
         $req->execute();
-        $resultats = array();    
-        // Parcours des résultats de la requête et stockage dans le tableau $resultats
-            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-                $resultats[] = $ligne;
-            } 
-        return $resultats;   
+        
+        return $req->fetchAll();   
+    }
+
+    //vérifier l'id de l'utilisateur et de la question 
+    public function idUserAndIdQuestion($id_question){
+        $query = "SELECT id_user FROM question WHERE id_question = :id_question";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $question = "";
+        $req->bindParam(':id_question', $id_question, PDO::PARAM_INT);
+        $req->execute();
+        $question = $req->fetch();
+        return $question;
     }
 
     public function questionById($id_question){
@@ -94,71 +107,37 @@ class Question{
         return $req->fetchAll();
     }
 
-    public function getQuestion(){
-        $query = "SELECT q.*,u.nom,u.prenom,u.email, as id_user,
-                  FROM question q
-                  JOIN users u ON q.id_user = u.id_user
-                  WHERE q.id_question IS NULL
-        ORDER BY q.create_date DESC";
-        // Obtention de la connexion à la base de données
-        $dbConnexion = $this->db->getConnexion();    
-    // Préparation de la requête SQL
-        $req = $dbConnexion->prepare($query);   
-    // Exécution de la requête SQL
-        $req->execute();    
-    // Initialisation d'un tableau pour stocker les résultats de la requête
-        $resultats = array();    
-    // Parcours des résultats de la requête et stockage dans le tableau $resultats
-        while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-            $resultats[] = $ligne;
-        }    
-    // Retour du tableau contenant tous les résultats
-        return $resultats;
-    }
+    
 
-
-    public function deleteQuestion($pdo,$id_question){
-        $query = "DELETE FROM question WHERE id_question =:id_question";
-        $dbConnexion = $this->db->getConnexion();
-        $req = $dbConnexion->prepare($query);
-        $req->bindParam(':id_question', $id_question);
-        $req->execute();
- 
-        return $req->rowCount() >0;
-    }
-
-// ...
-// Supprime une question et ses réponses associées
-    function deleteQuestions($pdo, $id_question) {
-        $dbConnexion = $this->db->getConnexion();
+    // Supprime une question et ses réponses associées
+    function deleteQuestion($id_question) {
+    
+            // Supprimer les réponses associées
+            $query = ("DELETE FROM reponse WHERE id_question = :id_question");
+            $dbConnexion = $this->db->getConnexion();
+            $req_reponses = $dbConnexion->prepare($query);
+            $req_reponses->bindParam(':id_question', $id_question, PDO::PARAM_INT);
+            $req_reponses->execute();
+    
+            // Supprimer les images associées (si la table image est liée)
+            $query = ("DELETE FROM image WHERE id_image = :id_question");
+            $dbConnexion = $this->db->getConnexion();
+            $req_images = $dbConnexion->prepare($query);          
+            $req_images->bindParam(':id_question', $id_question, PDO::PARAM_INT);
+            $req_images->execute();
+    
+            // Supprimer la question
+            $query = ("DELETE FROM question WHERE id_question = :id_question");
+            $dbConnexion = $this->db->getConnexion();
+            $req_question = $dbConnexion->prepare($query);   
+            $req_question->bindParam(':id_question', $id_question, PDO::PARAM_INT);
+            $req_question->execute();
+    
+    
+            return true;
        
-    try {
-        $pdo->beginTransaction();
-
-        // Supprimer les réponses associées
-        $stmt_reponses = $pdo->prepare("DELETE FROM reponse WHERE id_question = :id_question");
-        $stmt_reponses->bindParam(':id_question', $id_question, PDO::PARAM_INT);
-        $stmt_reponses->execute();
-
-        // Supprimer les images associées (si la table image est liée)
-        $stmt_images = $pdo->prepare("DELETE FROM image WHERE id_image = :id_question");
-        $stmt_images->bindParam(':id_question', $id_question, PDO::PARAM_INT);
-        $stmt_images->execute();
-
-        // Supprimer la question
-        $stmt_question = $pdo->prepare("DELETE FROM questions WHERE id_question = :id_question");
-        $stmt_question->bindParam(':id_question', $id_question, PDO::PARAM_INT);
-        $stmt_question->execute();
-
-        $pdo->commit();
-        return true;
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        return false;
     }
-}
-
-        
+    
     
 
 }

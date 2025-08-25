@@ -16,7 +16,6 @@
             }else{
         ?>
         <li><a href="../views/question.php">Questions</a></li>
-        <li><a href="../views/reponse.php">Reponse</a></li>
         <li><a href="../views/tableau_de_bord.php">Votre tableau de bord</a></li>
         <li><button class="deconnect"><a href="../views/deconnexion.php">OFF</a></button></li>
 
