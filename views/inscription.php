@@ -81,24 +81,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2 class="h2">Inscription</h2>
 
     <form method="POST" action="" enctype="multipart/form-data">
-        Votre Nom : 
+        <p>Votre Nom : </p>
         <input type="text" name="nom" id="nom" placeholder="votre nom">
         <br>
-        Votre Prénom : 
+        <p>Votre Prénom : </p>
         <input type="text" name="prenom" id="prenom" placeholder="votre prénom">
         <br>
-        Votre E-mail : 
+        <p>Votre E-mail : </p>
         <input type="email" name="email" id="email" placeholder="email: exemple@exemple.com">
         <br>
-        Votre mot de passe :
+        <p>Votre mot de passe : </p>
         <input type="password" name="password" id="password" placeholder="mot de passe">
         <br>
         
-        Photo de profil :
+        <p>Photo de profil : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="photo_profil" id="photo_profil">
         <br>      
-        Inscription : 
+        <p>Inscription : </p>
         <input type="submit" name="inscription"
                 value="Créer un compte" >
         <br>

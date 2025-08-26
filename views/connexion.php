@@ -38,13 +38,13 @@ if(isset($_POST['connexion']) ){
     <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-            Email :
+            <p>Email :</p>
             <input type="email" name="email" required >
             <br>
-            Mot de passe :
+           <p> Mot de passe :</p>
             <input type="password" name="password" required>
             <br>
-            Connexion :
+            <p>Connexion :</p>
             <input type="submit" name="connexion" value="connexion">
         </form>
 </div>

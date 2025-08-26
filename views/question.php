@@ -140,7 +140,7 @@ if(isset($_POST['envoyer'])){
 
     <form method="POST" action="" enctype="multipart/form-data">
        <br>
-        Quelle est le theme de bricolage : <br>
+       <p> Quelle est le theme de bricolage : </p><br>
     <select name="theme" id="pet-select">
         <option  value="">--Quel est le theme de la quetion--</option>
         <option name="theme" value="Electricite">01 :Electricite</option>
@@ -152,30 +152,30 @@ if(isset($_POST['envoyer'])){
         <option name="theme" value="Mecanique">07:Mecanique</option>
     </select>
         <br><br>
-        Votre question : <br>
+       <p> Votre question : </p><br>
         <textarea type="text" name="question" id="question" placeholder="ma question"></textarea>
         <br><br>
-        Photo 1 :
+       <p> Photo 1 : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_1" id="image_1">
         <br>
-        Photo 2 :
+        <p>Photo 2 : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_2" id="image_2">
         <br> 
-        Photo 3 :
+       <p> Photo 3 : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_3" id="image_3">
         <br> 
-        Photo 4 :
+        <p>Photo 4 : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_4" id="image_4">
         <br> 
-        Photo 5 :
+        <p>Photo 5 : </p>
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_5" id="image_5">
         <br> 
-        Poser la question : 
+        <p>Poser la question : </p>
         <input type="submit" name="envoyer"
                 value="Envoyer la question" >
         <br>

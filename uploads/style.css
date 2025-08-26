@@ -9,9 +9,9 @@ body{
     display: grid;
     place-items: center;
     margin: auto;
-    /*background-image: url('img/background.jpg');
-    background-size: cover;*/
-    background-color: #34491c;
+    background-image: url('photo_profil/mur_bois_2.png');
+    background-size: cover;
+    /*background-color: #34491c;*/
     color: #4B5943;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
@@ -53,13 +53,15 @@ body{
 .inscrip{
     width: 50%;
     height: auto;
-    background-color: rgba(146, 185, 156, 0.164);
+    background-image: url('photo_profil/mur_acier.png');
+    background-size: cover;
+    /*background-color: rgba(146, 185, 156, 0.164);*/
     padding: 20px;
     margin-top: 80px;
     margin-bottom: 20px;
     border-radius: 4%;
-    box-shadow: 5px 5px rgba(121, 245, 245, 0.897), -1em 0 0.4em rgb(128, 152, 158);
-    border: solid 2px #333;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.897), -1em 0 0.3em rgb(97, 52, 1);
+    border: solid 4px #706a6a;
 }
 input, label{
     display: grid;
@@ -88,19 +90,25 @@ input, label{
 .dashboard-container {
     max-width: 800px;
     margin: 50px auto;
-    background-color: #532B2B;
+    background-image: url('photo_profil/mur_bois.png');
+    background-size: cover;
+    /*background-color: #532B2B;*/
     padding: 20px 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    border: solid 2px #132A13;
 }
 h2 {
-    color: #777474;
+    font-size: 39px;
+    color: #9e6161;
+    text-shadow: #16333a 2px 3px;
 }
 .dash{
-    color: #ada8a8;
+    color: #311d1d;
 }
 .dashboard{
-    color: #5a7f88;
+    font-size: 25px;
+    color: #0b323b;
     text-decoration: none;
 }
 .dashboard:hover {
@@ -115,8 +123,8 @@ h2 {
     margin-right: 15px;
 }
 .photo_profil{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 15px;
@@ -176,7 +184,8 @@ h2 {
 h1 {
     display: grid;
     place-items: center;
-    color: #AA8669;
+    color: #290409;
+    text-shadow: #91a4a8 2px 3px;
     margin-top: 25px;
     text-decoration-line: underline;
     margin-bottom: 20px;
@@ -192,9 +201,8 @@ p {
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
-    background: -webkit-linear-gradient(rgb(163, 189, 102)0%, rgb(80, 128, 100));
-    background-clip: text;
-    -webkit-text-fill-color: transparent;    
+    color: #aacc86;   
+    text-shadow: #0b323b 2px 3px;
  }
 
 
@@ -204,7 +212,7 @@ footer {
     width: 100%;
     background-color: #132A13; 
     color:#B9CFD0;  
-    border: 4px solid #467046;
+    border: 1px solid #467046;
     margin-top: 100px;  
     margin-bottom: 10px;
 }
@@ -215,4 +223,8 @@ footer {
     color: #B9CFD0;
     padding: 10px 15px;
     display: inline-block;
+}
+.p-footer{
+    color: #91a4a8;
+    font-size: small;
 }

@@ -37,9 +37,9 @@ if (isset($_SESSION['id_user'])) {
                 <div class="item-1a">
                     <img class="photo_profil" src="../uploads/photo_profil/'.$image.'" alt="photo de profil">  
                 </div>
-                <p>Nom : '.$nom.'</p>
-                <hp>Prénom : '.$prenom.'</p>
-                <hp>Email : '.$email.'</p> 
+                <p class="dash">Nom : '.$nom.'</p>
+                <p class="dash">Prénom : '.$prenom.'</p>
+                <p class="dash">Email : '.$email.'</p> 
                 <br>
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
                 <a class="dashboard" href="deconnexion.php">Se déconnecter</a>
