@@ -20,8 +20,6 @@ if (isset($_SESSION['id_user'])) {
     $new_user = new Users();
     $user = $new_user->getUserById($id_user);
 
-    $new_question = new Question();
-    $questions = $new_question->questionByIdUser($id_user);
     //$questions = $new_question->questionByIdUser($id_user);
     $nom = $user['nom'];
     $prenom = $user['prenom'];
@@ -54,8 +52,8 @@ if (isset($_SESSION['id_user'])) {
         <br><br>
 
 <?php
-$question = new Question();
-$questions = $question->getQuestionAndImage();
+$new_question = new Question();
+$questions = $new_question->questionByIdUser($id_user);
 
     if (empty($questions)) {
         echo "<p>Vous n'avez posé aucune question.</p>";
@@ -81,11 +79,12 @@ $questions = $question->getQuestionAndImage();
             echo '<div class="question-author">Posée par : ' . htmlspecialchars($question['prenom'] . ' ' . $question['nom']) . '</div><br>';
 
             // Boutons d'action
-           // $id_user = $_SESSION['id_user'];
-            $new_question = new Question();
-            $questions = $new_question->questionByIdUser($id_user);
+            //$id_user = $_SESSION['id_user'];
+            //$new_question = new Question();
+            //$question = $new_question->questionById($question['id_question']);
                 echo '<div class="action-buttons">';
-                    echo '<p><a href="#" class="delete-button" onclick="confirmDelete(' . $question['id_question'] . ')">Supprimer</a></p>';
+                    echo '<p><a href="delete_question.php?id_question=' . $question['id_question'] . '"
+                           class="delete-button">Supprimer</a></p>';
           
 
        echo'  
@@ -94,6 +93,7 @@ $questions = $question->getQuestionAndImage();
          // Afficher les réponses existantes
             $reponse = new Reponse();
             $reponses = $reponse->getReponsesForQuestion($question['id_question']);
+
             if (!empty($reponses)) {
                 echo '<div class="reponses">';
                 foreach ($reponses as $reponse) {

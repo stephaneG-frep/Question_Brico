@@ -3,7 +3,7 @@
 //require_once "../core/config.php";
 
 ?>
-<body>
+
 <nav class="nav">
     <ul class="nav-link">
         <li><a href="../public/index.php">Accueil</a></li>

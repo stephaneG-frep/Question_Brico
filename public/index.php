@@ -14,7 +14,8 @@ require_once "../include/header.php";
 
 
 $question = new Question();
-$questions = $question->getQuestionAndImage();
+$questions = $question->getQuestionAndImageAndUser();
+
 ?>
 <div class="container">
         <h2>Questions récentes</h2>
@@ -27,8 +28,8 @@ $questions = $question->getQuestionAndImage();
         } else {
             foreach ($questions as $question) {
                 echo '<div class="question">';
-                echo '<div class="question-theme">' . htmlspecialchars($question['theme']) . '</div>';
-                echo '<div class="question-text"><h3>' . nl2br(htmlspecialchars($question['question'])) . '</h3></div>';
+                    echo '<div class="question-theme">' . htmlspecialchars($question['theme']) . '</div>';
+                    echo '<div class="question-text"><h3>' . nl2br(htmlspecialchars($question['question'])) . '</h3></div>';
 
                 // Afficher les images si elles existent
                 if (!empty($question['image_1']) || !empty($question['image_2']) || 
@@ -64,11 +65,12 @@ $questions = $question->getQuestionAndImage();
                 }
 
             }
-            }
-            echo '</div>
-        </div>';
-?>
-
+            
+            echo '</div>';
+  } ?>
+</div>
+}
+</div>
  <?php
 require_once "../include/footer.php";
 ?>

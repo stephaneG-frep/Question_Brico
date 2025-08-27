@@ -85,21 +85,15 @@ class Question{
         $req = $dbConnexion->prepare($query);   
     // Exécution de la requête SQL
         $req->execute();    
-    // Initialisation d'un tableau pour stocker les résultats de la requête
-        $resultats = array();    
-    // Parcours des résultats de la requête et stockage dans le tableau $resultats
-        while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-            $resultats[] = $ligne;
-        }    
-    // Retour du tableau contenant tous les résultats
-        return $resultats;
+    
+        return $req->fetchAll();
     }
 
-    public function getQuestionAndImage(){
+    public function getQuestionAndImageAndUser(){
         $query = " SELECT question.*, users.nom, users.prenom, image.*
             FROM question
             JOIN users ON question.id_user = users.id_user
-            LEFT JOIN image ON users.id_user = image.id_user
+            LEFT JOIN image ON users.id_user = image.id_image
             ORDER BY question.id_question DESC";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);

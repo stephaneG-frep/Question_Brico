@@ -8,6 +8,7 @@ $date = date("d/m/Y");
 
 
 ?>
+<body>
 <header>
     <div class="container_nav">
         <h1>Bienvenue sur le site de Question Brico</h1> 
