@@ -11,32 +11,12 @@ class Image{
         $this->db = Database::getInstance();
     }
 
-    /*
-    public function registerImage($images,$id_user){
-        $query = "INSERT INTO image (image_1,image_2,image_3,image_4,image_5,id_user)
-                  VALUES (:img1,:img2,:img3,:img4,:img5,:id_user)";
-        $dbConnexion = $this->db->getConnexion();
-        $req = $dbConnexion->prepare($query);
-        $images= [];
-        $req->bindParam(':img1', $images[0], PDO::PARAM_STR);
-        $req->bindParam(':img2', $images[1], PDO::PARAM_STR);
-        $req->bindParam(':img3', $images[2], PDO::PARAM_STR);
-        $req->bindParam(':img4', $images[3], PDO::PARAM_STR);
-        $req->bindParam(':img5', $images[4], PDO::PARAM_STR);
-        $req->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-        $images = array();    
-        // Parcours des résultats de la requête et stockage dans le tableau $resultats
-            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-                $images[] = $ligne;
-            }  
-        return $images; 
-    }
-*/
 
-    public function registerImage($image_1,$image_2,$image_3,$image_4,$image_5,$id_user){
 
-        $query = "INSERT INTO image(image_1,image_2,image_3,image_4,image_5,id_user)
-                   VALUES(:image_1,:image_2,:image_3,:image_4,:image_5,:id_user)";
+    public function registerImage($image_1,$image_2,$image_3,$image_4,$image_5,$id_question){
+
+        $query = "INSERT INTO image(image_1,image_2,image_3,image_4,image_5,id_question)
+                   VALUES(:image_1,:image_2,:image_3,:image_4,:image_5,:id_question)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':image_1',$image_1);
@@ -44,7 +24,7 @@ class Image{
         $req->bindParam(':image_3',$image_3);
         $req->bindParam(':image_4',$image_4);
         $req->bindParam(':image_5',$image_5);
-        $req->bindParam(':id_user',$id_user);
+        $req->bindParam(':id_question',$id_question);
         //$req->bindParam(':id_image',$id_image);
         $req->execute();
         $resultats = array();    
@@ -75,17 +55,14 @@ class Image{
 
     
     public function imageByIdUser($id_user){
-        $query = "SELECT * FROM image WHERE id_user = :id_user";
+        // Récupère les images associées à un utilisateur
+        $query = "SELECT image_1,image_2,image_3,image_4,image_5
+                 FROM image WHERE id_user = :id_user";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':id_user',$id_user);
-        $req->execute();
-        $resultats = array();    
-        // Parcours des résultats de la requête et stockage dans le tableau $resultats
-            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
-                $resultats[] = $ligne;
-            }  
-        return $resultats;  
+        $req->execute(); 
+        return $req->fetchAll(PDO::FETCH_ASSOC);  
     }
 
     public function getAllImage(){

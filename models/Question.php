@@ -13,34 +13,44 @@ class Question{
     }
 
 
-    public function registerQuestion($theme,$question,$id_user){
+    public function registerQuestion($theme,$question,$image_1,$image_2,$image_3,
+                $image_4,$image_5,$id_user){
 
-        $query = "INSERT INTO question(theme,question,create_date,id_user)
-                   VALUES(:theme,:question,NOW(),:id_user)";
+        $query = "INSERT INTO question(theme,question,create_date,image_1,image_2,image_3,
+                            image_4,image_5,id_user)
+                   VALUES(:theme,:question,NOW(),:image_1,:image_2,:image_3,:image_4,:image_5,:id_user)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':theme',$theme);
         $req->bindParam(':question',$question);
+        $req->bindParam(':image_1',$image_1);
+        $req->bindParam(':image_2',$image_2);
+        $req->bindParam(':image_3',$image_3);
+        $req->bindParam(':image_4',$image_4);
+        $req->bindParam(':image_5',$image_5);
         $req->bindParam(':id_user',$id_user);
         //$req->bindParam(':id_question',$id_question);
         $req->execute();
         return $req->rowCount() > 0;
 
     }
-
+    //question spécifique a un utilisateur
     public function questionByIdUser($id_user){
-        $query = "SELECT question.*, users.nom, users.prenom, image.*
-                    FROM question
-                    JOIN users ON question.id_user = users.id_user
-                    LEFT JOIN image ON question.id_question = image.id_image
-                    WHERE question.id_user = :id_user
-                    ORDER BY question.id_question DESC";
+        $query = "SELECT 
+            q.id_question,q.theme,q.question,
+            q.create_date,q.image_1,q.image_2,
+            q.image_3,q.image_4,q.image_5,
+            u.id_user,u.nom,u.prenom,u.photo_profil,u.email
+            FROM question q
+            JOIN users u ON q.id_user = u.id_user
+            WHERE u.id_user = :id_user
+            ORDER BY q.id_question DESC;";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
-        $req->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+        $req->bindParam(':id_user',$id_user, PDO::PARAM_INT);
         $req->execute();
         
-        return $req->fetchAll();   
+        return $req->fetchAll(PDO::FETCH_ASSOC);   
     }
 
     //vérifier l'id de l'utilisateur et de la question 
@@ -75,25 +85,29 @@ class Question{
     public function getAllQuestion(){
      //récuperer les toutes annonces     
     // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
-    $query = "SELECT q.id_question, q.theme, q.question, q.id_user as id_user, 
-                    u.nom,u.prenom,u.email,u.photo_profil FROM question q
-                 JOIN users u ON q.id_user = u.id_user ORDER BY q.id_question DESC";
+    $query = "SELECT 
+                q.id_question,q.theme,q.question,
+                q.create_date,q.image_1,q.image_2,
+                q.image_3,q.image_4,q.image_5,
+                u.id_user,u.nom,
+                u.prenom,u.photo_profil,u.email
+            FROM question q
+            JOIN users u ON q.id_user = u.id_user
+            ORDER BY q.id_question DESC;";
 
     // Obtention de la connexion à la base de données
         $dbConnexion = $this->db->getConnexion();    
     // Préparation de la requête SQL
         $req = $dbConnexion->prepare($query);   
     // Exécution de la requête SQL
-        $req->execute();    
-    
+        $req->execute();       
         return $req->fetchAll();
     }
 
-    public function getQuestionAndImageAndUser(){
-        $query = " SELECT question.*, users.nom, users.prenom, image.*
+    public function getQuestionAndUser(){
+        $query = " SELECT question.*, users.nom, users.prenom,
             FROM question
             JOIN users ON question.id_user = users.id_user
-            LEFT JOIN image ON users.id_user = image.id_image
             ORDER BY question.id_question DESC";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
@@ -113,22 +127,15 @@ class Question{
             $req_reponses->bindParam(':id_question', $id_question, PDO::PARAM_INT);
             $req_reponses->execute();
     
-            // Supprimer les images associées (si la table image est liée)
-            $query = ("DELETE FROM image WHERE id_image = :id_question");
-            $dbConnexion = $this->db->getConnexion();
-            $req_images = $dbConnexion->prepare($query);          
-            $req_images->bindParam(':id_question', $id_question, PDO::PARAM_INT);
-            $req_images->execute();
-    
             // Supprimer la question
             $query = ("DELETE FROM question WHERE id_question = :id_question");
             $dbConnexion = $this->db->getConnexion();
-            $req_question = $dbConnexion->prepare($query);   
-            $req_question->bindParam(':id_question', $id_question, PDO::PARAM_INT);
-            $req_question->execute();
+            $req_questions = $dbConnexion->prepare($query);   
+            $req_questions->bindParam(':id_question', $id_question, PDO::PARAM_INT);
+            $req_questions->execute();
     
     
-            return true;
+            return $req_questions->fetchAll();
        
     }
     

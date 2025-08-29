@@ -38,7 +38,7 @@ if (!$question || $question['id_user'] != $_SESSION['id_user']) {
 // Supprimer la question
 $new_question = new Question();
 if ($question = $new_question->deleteQuestion($id_question)) {
-    header("Location: dashboard.php?message=Question supprimée avec succès");
+    header("Location: tableau_de_bord.php?message=Question supprimée avec succès");
     exit();
 } else {
     die("Erreur lors de la suppression de la question.");

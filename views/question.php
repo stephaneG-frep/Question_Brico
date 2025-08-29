@@ -111,16 +111,17 @@ if(isset($_POST['envoyer'])){
                 }
             
             $newQuestion = new Question();
-            $resultat = $newQuestion->registerQuestion($theme,$question,$id_user);  
-            $images = new Image();
-            $result = $images->registerImage($image_1,$image_2,$image_3,$image_4,$image_5,
-                                                $id_user);                            
-            if($resultat){
-                header("location:../public/index.php");
-                exit();
-            }else{
-                $message = "Erreur lors du dépot de l'annonce";
-            }
+            $question = $newQuestion->registerQuestion($theme,$question,$image_1,$image_2,
+                               $image_3,$image_4,$image_5, $id_user);
+           
+                                        
+                if($question){
+                    header("location:../public/index.php");
+                    exit();
+                }else{
+                    $message = "Erreur lors du dépot de l'annonce";
+                }
+            
         }
 
     }

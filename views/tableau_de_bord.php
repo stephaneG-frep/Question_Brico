@@ -46,14 +46,14 @@ if (isset($_SESSION['id_user'])) {
     
         </div> 
     </div>';
-?>
+ ?>
     <div class="container">
         <h2 class="dashboard-title">Mes questions</h2>
         <br><br>
 
-<?php
-$new_question = new Question();
-$questions = $new_question->questionByIdUser($id_user);
+    <?php
+    $new_question = new Question();
+    $questions = $new_question->questionByIdUser($id_user);
 
     if (empty($questions)) {
         echo "<p>Vous n'avez posé aucune question.</p>";
@@ -87,9 +87,9 @@ $questions = $new_question->questionByIdUser($id_user);
                            class="delete-button">Supprimer</a></p>';
           
 
-       echo'  
-        <h2 class="dashboard-title">Les Reponses</h2>
-          <br><br>';
+            echo'  
+                <h2 class="dashboard-title">Les Reponses</h2>
+                <br><br>';
          // Afficher les réponses existantes
             $reponse = new Reponse();
             $reponses = $reponse->getReponsesForQuestion($question['id_question']);
@@ -103,26 +103,18 @@ $questions = $new_question->questionByIdUser($id_user);
                 }
                 echo'</div>';
              }
-            }
-        }
-                echo'</div';            
-            echo'
-        </div>';
-
-           
-               
+          }
+    
+          echo '</div>';
+        } ?>
+      </div>
+      }
+      </div>       
+<?php
 } else { 
     header('Location: ../views/connexion.php');
     exit();
 }  
-?>
-<script>
-function confirmDelete(id_question) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette question ?")) {
-        window.location.href = "delete_question.php?id_question=" + id_question;
-    }
-}
-</script>
-<?php
+
 require_once "../include/footer.php";
 ?>

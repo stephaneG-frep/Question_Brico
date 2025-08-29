@@ -14,7 +14,8 @@ require_once "../include/header.php";
 
 
 $question = new Question();
-$questions = $question->getQuestionAndImageAndUser();
+//$questions = $question->getQuestionAndImageAndUser();
+$questions = $question->getAllQuestion();
 
 ?>
 <div class="container">
@@ -39,7 +40,7 @@ $questions = $question->getQuestionAndImageAndUser();
                     for ($i = 1; $i <= 5; $i++) {
                         $image = $question["image_$i"];
                         if (!empty($image)) {
-                            echo '<img src="../uploads/img/' . htmlspecialchars($image) . '" alt="Image question">';
+                            echo '<img src="../uploads/img/' . htmlspecialchars($image) . '" alt="Image de la question">';
                         }
                     }
                     echo '</div>';
