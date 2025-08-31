@@ -29,7 +29,6 @@ if (isset($_SESSION['id_user'])) {
         echo '
 
         <br><br>
-    <div>
         <div class="dashboard-container">        
             <section class="item-1">
                 <div class="item-1a">
@@ -42,14 +41,16 @@ if (isset($_SESSION['id_user'])) {
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
                 <a class="dashboard" href="deconnexion.php">Se déconnecter</a>
                 <a class="dashboard" href="change_profil.php">Changer le profil</a>
+                <a href="se_desinscrire.php" class="dashboard">Se désinscrire</a>
                 </section>
     
-        </div> 
-    </div>';
+        </div>';
  ?>
-    <div class="container">
-        <h2 class="dashboard-title">Mes questions</h2>
-        <br><br>
+
+<h2 class="dashboard-title">Mes questions</h2>
+<br><br>
+
+<div class="container">
 
     <?php
     $new_question = new Question();
@@ -60,8 +61,12 @@ if (isset($_SESSION['id_user'])) {
     } else {
         foreach ($questions as $question) {
             echo '<div class="question">';
-                echo '<div class="question-theme">' . htmlspecialchars($question['theme']) . '</div>';
-                echo '<div class="question-text">' . nl2br(htmlspecialchars($question['question'])) . '</div>';
+                echo '<div class="question-theme">' 
+                        . htmlspecialchars($question['theme']) .
+                     '</div>';
+                echo '<div class="question-text">
+                            <h5>' . nl2br(htmlspecialchars($question['question'])) . '</h5>
+                      </div>';
 
             // Afficher les images si elles existent
             if (!empty($question['image_1']) || !empty($question['image_2']) || 
@@ -74,22 +79,16 @@ if (isset($_SESSION['id_user'])) {
                         echo '<img src="../uploads/img/' . htmlspecialchars($image) . '" alt="Image question">';
                     }
                 }
-                echo '</div>';
+                echo'</div>';
+                
             }
-            echo '<div class="question-author">Posée par : ' . htmlspecialchars($question['prenom'] . ' ' . $question['nom']) . '</div><br>';
-
-            // Boutons d'action
-            //$id_user = $_SESSION['id_user'];
-            //$new_question = new Question();
-            //$question = $new_question->questionById($question['id_question']);
-                echo '<div class="action-buttons">';
-                    echo '<p><a href="delete_question.php?id_question=' . $question['id_question'] . '"
-                           class="delete-button">Supprimer</a></p>';
-          
-
-            echo'  
-                <h2 class="dashboard-title">Les Reponses</h2>
-                <br><br>';
+            echo '<div class="question-author">
+                        Posée par : ' . htmlspecialchars($question['prenom'] . ' ' 
+                        . $question['nom']) . 
+                 '</div><br>';
+            echo'<a href="delete_question.php?id_question=' . $question['id_question'] . '"
+                           class="reply-button">Supprimer</a>
+            </div>';
          // Afficher les réponses existantes
             $reponse = new Reponse();
             $reponses = $reponse->getReponsesForQuestion($question['id_question']);
@@ -98,18 +97,18 @@ if (isset($_SESSION['id_user'])) {
                 echo '<div class="reponses">';
                 foreach ($reponses as $reponse) {
                     echo '<div class="reponse">';
-                        echo '<p><strong>' . htmlspecialchars($reponse['prenom'] . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</p>';
+                        echo '<h5><strong>Une reponse de : ' . htmlspecialchars($reponse['prenom']
+                         . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</h5>';
+                        echo '</div><hr>';
                     echo '</div>';
                 }
                 echo'</div>';
-             }
           }
-    
-          echo '</div>';
-        } ?>
-      </div>
-      }
-      </div>       
+        }
+        echo '</div>';
+    } ?>
+</div>
+          
 <?php
 } else { 
     header('Location: ../views/connexion.php');

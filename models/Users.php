@@ -148,6 +148,32 @@ class Users{
         return $req->rowCount() > 0;
     }
 
+    public function seDesinscrire(){
+
+            $query = ("DELETE FROM reponse WHERE id_user = :id_user");
+                $dbConnexion = $this->db->getConnexion();
+                $req_reponses = $dbConnexion->prepare($query);
+                $req_reponses->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
+                $req_reponses->execute();
+        
+                // Supprimer la question
+                $query = ("DELETE FROM question WHERE id_user = :id_user");
+                $dbConnexion = $this->db->getConnexion();
+                $req_questions = $dbConnexion->prepare($query);   
+                $req_questions->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
+                $req_questions->execute();
+
+                $query = ("DELETE FROM users WHERE id_user = :id_user");
+                $dbConnexion = $this->db->getConnexion();
+                $req_users = $dbConnexion->prepare($query);
+                $req_users->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
+                $req_users->execute();
+        
+                session_destroy();
+
+                return $req_users->fetchAll();
+    }
+
     
 
 
