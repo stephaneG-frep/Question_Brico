@@ -140,7 +140,6 @@ h2 {
 /* question accueil */
 .container {
     display: inline;
-    background-color: #8bc78b;
     justify-content: space-evenly;
     text-align: justify;
     max-width: 1200px;

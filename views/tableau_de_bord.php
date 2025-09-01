@@ -48,6 +48,7 @@ if (isset($_SESSION['id_user'])) {
  ?>
 
 <h2 class="dashboard-title">Mes questions</h2>
+<p>Merci de supprimer vos questions au bout de 3 semaines...</p>
 <br><br>
 
 
