@@ -50,15 +50,16 @@ if (isset($_SESSION['id_user'])) {
 <h2 class="dashboard-title">Mes questions</h2>
 <br><br>
 
-<div class="container">
 
-    <?php
+<div class="container">
+<?php
+
     $new_question = new Question();
     $questions = $new_question->questionByIdUser($id_user);
 
     if (empty($questions)) {
-        echo "<p>Vous n'avez posé aucune question.</p>";
-    } else {
+        echo "<p class='no_question'>Aucune question trouvée.</p>";   
+    }else{
         foreach ($questions as $question) {
             echo '<div class="question">';
                 echo '<div class="question-theme">' 
@@ -100,7 +101,7 @@ if (isset($_SESSION['id_user'])) {
                         echo '<h5><strong>Une reponse de : ' . htmlspecialchars($reponse['prenom']
                          . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</h5>';
                         echo '</div><hr>';
-                    echo '</div>';
+                    
                 }
                 echo'</div>';
           }

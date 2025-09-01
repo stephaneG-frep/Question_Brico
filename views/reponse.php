@@ -41,15 +41,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+<div class="inscrip">
 <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 <h2 class="h2">Votre reponse</h2>
 
 <form method="post">
-    Réponse : <textarea name="reponse" required></textarea><br>
+   <p> Réponse : <br><br>
+    <textarea name="reponse" required></textarea>
+    <br>
     <input type="hidden" name="id_question" value="<?= htmlspecialchars($_GET['id_question']) ?>">
-    <button type="submit">Répondre</button>
+    <br>
+    <button type="submit" class="reply-button">Répondre</button>
+   </p>
 </form>
-
+</div>
 <?php
 require_once "../include/footer.php";
 

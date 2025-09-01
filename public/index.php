@@ -20,11 +20,13 @@ $questions = $question->getAllQuestion();
 ?>
  <h2>Questions récentes</h2>
  <br><hr>
+ <?php
+ if (empty($questions)) {
+    echo "<p class='no_question'>Aucune question trouvée.</p>";
+?>
 <div class="container">
         <?php
 
-        if (empty($questions)) {
-            echo "<p>Aucune question trouvée.</p>";
         } else {
             foreach ($questions as $question) {
                 echo '<div class="question">';

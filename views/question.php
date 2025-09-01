@@ -156,25 +156,30 @@ if(isset($_POST['envoyer'])){
        <p> Votre question : </p><br>
         <textarea type="text" name="question" id="question" placeholder="ma question"></textarea>
         <br><br>
-       <p> Photo 1 : </p>
+       <p> Photo 1 : 
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_1" id="image_1">
+      </p>
         <br>
-        <p>Photo 2 : </p>
+        <p>Photo 2 : 
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_2" id="image_2">
+        </p>
         <br> 
-       <p> Photo 3 : </p>
+       <p> Photo 3 : 
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_3" id="image_3">
+       </p>
         <br> 
-        <p>Photo 4 : </p>
+        <p>Photo 4 :
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_4" id="image_4">
+        </p>
         <br> 
-        <p>Photo 5 : </p>
+        <p>Photo 5 : 
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
         <input type="file" name="image_5" id="image_5">
+        </p>
         <br> 
         <p>Poser la question : </p>
         <input type="submit" name="envoyer"

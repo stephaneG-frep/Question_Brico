@@ -49,8 +49,9 @@ if (isset($_SESSION['id_user'])) {
         ?>
             <form method="post">
                 <div class="button-group">
-                    <a href="se_desinscrire.php?id_user=<?php $user['id_user']; ?>"Se désinscrire</a>
+                    
                     <button type="submit" class="confirm-button">Confirmer la désinscription</button>
+                    
                     <a href="tableau_de_bord.php" class="cancel-button">Annuler</a>
                 </div>
             </form>
