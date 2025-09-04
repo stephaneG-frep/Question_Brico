@@ -8,20 +8,32 @@
 body{
     /*
     display: grid;
-    place-items: center;*/
-
-    background-image: url('photo_profil/mur_bois_2.png');
+    place-items: center;
+    */
+    background-image: url('photo_profil/mosaique.jpg');
     background-size: cover;
-    /*background-color: #34491c;*/
-    color: #4B5943;
+    background-repeat: repeat;
+    opacity: 0.7; /* Ajuste la transparence si nécessaire */
+    /*background-color: #C8D6A2;*/
+    color: #b9c2b4;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     align-items: center;
     width: 100%;
 }
 
-/* navigation et header  */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(133, 121, 121, 0.9); /* Fond blanc légèrement transparent */
+    z-index: -1;
+}
 
+/* navigation et header  */
 .nav{
     display: inline-block;
     background-color: #711D1B;
@@ -105,7 +117,7 @@ input, label{
 }
 h2 {
     font-size: 39px;
-    color: #9e6161;
+    color: #792222;
     text-shadow: #16333a 2px 3px;
 }
 .dash{
@@ -138,6 +150,9 @@ h2 {
 
 
 /* question accueil */
+.container_nav{
+    margin-top: 120px;
+}
 .container {
     display: inline;
     justify-content: space-evenly;
@@ -189,7 +204,7 @@ h2 {
 }
 .question-author {
     background-color: #467046;
-    color: #8aaf8a;
+    color: #e9ece9;
     font-weight: bolder;
     font-size: 1em;
 }
@@ -237,7 +252,7 @@ p {
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
-    color: #aacc86;   
+    color: #6da72f;   
     text-shadow: #0b323b 2px 3px;
  }
 
@@ -289,3 +304,97 @@ footer {
     color: #91a4a8;
     font-size: small;
 }
+
+/* nav_burger navbar */
+.burger-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 60px;
+    background: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.burger-line {
+    width: 85px;
+    height: 3px;
+    background: white;
+    transition: 0.8s;
+}
+
+.burger-btn.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-btn.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-btn.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.logo{
+    position: fixed;
+    top: 0;
+    left: 100px;
+    color: #2c3e50;
+    /*width: 100%;*/
+    height: 120px;
+
+}
+.menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 250px;
+    height: 100vh;
+    background: #2c3e50;
+    padding: 80px 20px 20px 20px;
+    transition: right 0.8s ease;
+    z-index: 1000;
+}
+
+.menu.active {
+    right: 0;
+}
+
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.user-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+.navbar-brand {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: rgb(90, 8, 12);
+    text-decoration: none;
+}
+.navbar-brand:hover {
+    color: #536572;
+}
+

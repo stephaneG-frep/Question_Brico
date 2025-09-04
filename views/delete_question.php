@@ -9,7 +9,8 @@ require_once "../models/Question.php";
 require_once "../models/Reponse.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
-require_once "../include/navigation.php";
+require_once "../include/nav_burger.php";
+//require_once "../include/navigation.php";
 require_once "../include/header.php";
 //require_once "../include/token.php";
 
@@ -37,10 +38,12 @@ if (!$question || $question['id_user'] != $_SESSION['id_user']) {
 
 // Supprimer la question
 $new_question = new Question();
-if ($question = $new_question->deleteQuestion($id_question)) {
-    header("Location: tableau_de_bord.php?message=Question supprimée avec succès");
+$result = $new_question->deleteQuestion($id_question);
+if($result){
+    header("Location: tableau_de_bord.php");
     exit();
 } else {
+    header("location: tableau_de_bord.php");
     die("Erreur lors de la suppression de la question.");
 }
 ?>
