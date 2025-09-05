@@ -6,6 +6,7 @@ ini_set("display_errors", 1);
 require_once "../models/Users.php";
 require_once "../models/Image.php";
 require_once "../models/Question.php";
+require_once "../models/Commentaire.php";
 //require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/nav_burger.php";
@@ -24,9 +25,34 @@ if (isset($_SESSION['id_user'])) {
     $image = $user['photo_profil']; 
 }
 
+//instancier la methode getAllCommentaires
+$commentaire = new Commentaire();
+$commentaires = $commentaire->getAllCommentaires();
+// Instanciation du gestionnaire  des utilisateurs
+
+
 ?>
+<div class="content">
 
+        <div class="annonces-list">
+            <?php foreach ($commentaires as $commentaire): ?>
+                <div class="annonce-card">
+                    <div class="annonce-header">
+                        <img src="../uploads/photo_profil/<?=$image ?>" alt="Photo de profil" class="user-photo">
+                        <div class="user-info">
+                            <h3><?= htmlspecialchars($commentaire['prenom'] . ' ' . $commentaire['nom']) ?></h3>
+                            <h3><?=$commentaire['email']?></h3>
+                        </div>
+                    </div>
+                    
+                    <div class="annonce-details">
+                        <span class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</span>
+                        
+                        <p class="description"><?= $commentaire['commentaire'];?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+</div>
 
-
-
-<?php  require_once "../include/footer.php"; ?>
+<?php require_once "../include/footer.php"; ?>

@@ -7,6 +7,7 @@ require_once "../models/Users.php";
 require_once "../models/Image.php";
 require_once "../models/Question.php";
 require_once "../models/Reponse.php";
+require_once "../models/Astuce.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
 //require_once "../include/navigation.php";
@@ -41,6 +42,7 @@ if (isset($_SESSION['id_user'])) {
     </button>
 
     <nav class="menu" id="menu">
+
     <?php if ($is_logged_in): ?>
             <div class="user-profile">
                 <?php if (!empty($image)): ?>
@@ -55,12 +57,10 @@ if (isset($_SESSION['id_user'])) {
         <a href="../views/inscription.php"><i class="fas fa-user-plus"></i> Inscription</a>
         <a href="../views/connexion.php"><i class="fas fa-sign-in-alt"></i> Connexion</a>
 
-        <?php if ($is_logged_in): ?>
-        <a href="../views/deconnexion.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        <?php if ($is_logged_in): ?>       
         <a href="../views/tableau_de_bord.php"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
-        <a href="../views/question.php"><i class="fa-solid fa-question"></i> Question</a>
         <a href="../views/recherche.php"><i class="fa-brands fa-sistrix"></i> Recherche</a>
-        <a href="../views/astuse.php"><i class="fa-solid fa-lightbulb"></i> Astuces</a>
+        <a href="../views/astuce.php "><i class="fa-solid fa-lightbulb"></i> Les astuces</a>
         <a href="../views/commentaire.php"><i class="fa-solid fa-thumbs-up"></i> Commentaires <i class="fa-solid fa-thumbs-down"></i></a>
         <?php endif; ?>
     </nav>

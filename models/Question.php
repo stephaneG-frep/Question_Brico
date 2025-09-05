@@ -138,6 +138,27 @@ class Question{
             return $req_questions->fetchAll();
        
     }
+
+    public function getQuestionByTheme($theme){
+           
+        $query = "SELECT q.id_question, q.theme, q.question,q.create_date,q.image_1,q.image_2,
+                        q.image_3,q.image_4,q.image_5,
+                    u.nom, u.prenom, u.email, u.photo_profil FROM question q
+                   JOIN users u ON q.id_user = u.id_user WHERE q.theme LIKE :theme
+                   ORDER BY q.id_question DESC";
+        
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindValue(':theme', '%'.$theme.'%', PDO::PARAM_STR);
+        $req->execute();
+        $resultats = array();
+        while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+            $resultats[] = $ligne;
+        }
+
+        return $resultats;
+        
+    }
     
     
 

@@ -4,9 +4,10 @@ ini_set("display_errors", 1);
 
 
 require_once "../models/Users.php";
-require_once "../models/Image.php";
+require_once "../models/Astuce.php";
 require_once "../models/Question.php";
 require_once "../models/Reponse.php";
+require_once "../models/Commentaire.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/nav_burger.php";
@@ -40,10 +41,13 @@ if (isset($_SESSION['id_user'])) {
                 <p class="dash">Email : '.$email.'</p> 
                 <br>
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
-                <a class="dashboard" href="deconnexion.php">Se déconnecter</a>
-                <a class="dashboard" href="change_profil.php">Changer le profil</a>
-                <a href="se_desinscrire.php" class="dashboard">Se désinscrire</a>
-                </section>
+                    <a class="dashboard" href="question.php"><i class="fa-solid fa-question"></i> poser une question</a>
+                    <a class="dashboard" href="deconnexion.php"><i class="fas fa-sign-out-alt"></i>Se déconnecter</a>
+                    <a class="dashboard" href="change_profil.php">Changer le profil</a>
+                    <a class="dashboard" href="se_desinscrire.php">Se désinscrire</a>
+                    <a class="dashboard" href="post_astuce.php"><i class="fa-solid fa-lightbulb"></i> poster une astuces</a>
+                    <a class="dashboard" href="post_commentaire.php"> Poster un commentaire</a>
+            </section>
     
         </div>';
  ?>
