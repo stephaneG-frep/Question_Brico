@@ -58,7 +58,10 @@ if (isset($_SESSION['id_user'])) {
         <?php if ($is_logged_in): ?>
         <a href="../views/deconnexion.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
         <a href="../views/tableau_de_bord.php"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
-        <a href="../views/question.php">Question</a>
+        <a href="../views/question.php"><i class="fa-solid fa-question"></i> Question</a>
+        <a href="../views/recherche.php"><i class="fa-brands fa-sistrix"></i> Recherche</a>
+        <a href="../views/astuse.php"><i class="fa-solid fa-lightbulb"></i> Astuces</a>
+        <a href="../views/commentaire.php"><i class="fa-solid fa-thumbs-up"></i> Commentaires <i class="fa-solid fa-thumbs-down"></i></a>
         <?php endif; ?>
     </nav>
     </div>
