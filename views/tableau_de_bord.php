@@ -114,9 +114,39 @@ if (isset($_SESSION['id_user'])) {
         }
         echo '</div>';
     } ?>
-</div>
-          
-<?php
+
+
+
+
+        <h2 class="dashboard-title">Mes Réponses</h2>
+        <p>Merci de supprimer vos réponses au bout de 3 semaines...</p>
+        <br><br>
+
+
+        
+        <?php
+
+            $new_reponse = new Reponse();
+            $reponses = $new_reponse->reponseByIdUser($id_user);
+
+            if (!empty($reponses)) {
+                echo '<div class="reponses">';
+                foreach ($reponses as $reponse) {
+                    echo '<div class="reponse">';
+                        echo '<h5><strong>une reponse de : <br>' . 
+                        htmlspecialchars($reponse['prenom'] . ' ' 
+                        . $reponse['nom']) . ' :</strong> ' .
+                         nl2br(htmlspecialchars($reponse['reponse'])) . 
+                         '</h5>';
+                    echo '</div><hr>';
+                    
+                    echo'<a href="delete_reponse.php?id_reponse=' . $reponse['id_reponse'] . '"
+                    class="reply-button">Supprimer</a>';
+                }
+                echo '</div>';
+            }
+echo
+'</div>';
 } else { 
     header('Location: ../views/connexion.php');
     exit();

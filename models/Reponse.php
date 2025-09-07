@@ -41,6 +41,13 @@ class Reponse{
 
     public function reponseByIdUser($id_user){
         $query = "SELECT * FROM reponse WHERE id_user = :id_user";
+        $query = "SELECT 
+        p.id_reponse,p.reponse,
+        u.id_user,u.nom,u.prenom,u.photo_profil,u.email
+        FROM reponse p
+        JOIN users u ON p.id_user = u.id_user
+        WHERE u.id_user = :id_user
+        ORDER BY p.id_reponse DESC;";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':id_user',$id_user);
@@ -65,6 +72,29 @@ class Reponse{
         $req->execute();
         return $req->fetchAll();
     
+    }
+
+     //vérifier l'id de l'utilisateur et de la reponse 
+     public function idUserAndIdReponse($id_reponse){
+        $query = "SELECT id_user FROM reponse WHERE id_reponse = :id_reponse";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $question = "";
+        $req->bindParam(':id_reponse', $id_reponse, PDO::PARAM_INT);
+        $req->execute();
+        $question = $req->fetch();
+        return $question;
+    }
+
+     //supprimer le commentaire
+     public function deleteReponse($id_reponse){
+        $query = "DELETE FROM reponse WHERE id_reponse =:id_reponse";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_reponse', $id_reponse);
+        $req->execute();
+
+        return $req->rowCount() >0;
     }
 
 

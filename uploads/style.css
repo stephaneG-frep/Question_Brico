@@ -400,15 +400,21 @@ footer {
 }
 
 /* Commentaire */
+.content {
+    margin: 0 auto;
+    display: inline-block;
+}
+
 .annonces-list {
     padding: 25px;
 }
 .annonce-card {
     display: inline-block;
-    background: rgb(9, 190, 39);
+    background: rgb(118, 173, 127);
     border-radius: 8px;
     padding: 25px;
     width: 350px;
+    height: 300px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin-bottom: 20px;
     margin-top: 30px;

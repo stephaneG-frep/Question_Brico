@@ -27,6 +27,69 @@ class Astuce{
         return $req->rowCount() > 0;
     }
 
+    public function getAstuceById($id_astuce){
+        // Définition de la requête SQL pour récupérer une annonce par son identifiant
+        $query = "SELECT * FROM astuce WHERE id_astuce = :id_astuce";   
+        // Obtention de la connexion à la base de données
+        $dbConnexion = $this->db->getConnexion();   
+        // Préparation de la requête SQL
+        $req = $dbConnexion->prepare($query);   
+        // Liaison du paramètre :id_annonce dans la requête SQL avec la valeur fournie en argument
+        $req->bindParam(':id_astuce', $id_astuce);   
+        // Exécution de la requête SQL
+        $req->execute();   
+        // Récupération du résultat sous forme de tableau associatif
+        $result = $req->fetch(PDO::FETCH_ASSOC);   
+        // Retour du tableau associatif contenant les informations de la production
+        return $result;
+    }
+
+    //récuperer les tous les commentaires
+    public function getAllAstuces(){
+    // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
+    $query = "SELECT a.id_astuce, a.astuce, a.image_1, a.image_2, a.image_3,
+            a.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil FROM astuce a
+            JOIN users u ON a.id_user = u.id_user ORDER BY a.id_astuce DESC";
+    // Obtention de la connexion à la base de données
+        $dbConnexion = $this->db->getConnexion();    
+    // Préparation de la requête SQL
+        $req = $dbConnexion->prepare($query);   
+    // Exécution de la requête SQL
+        $req->execute();    
+    // Initialisation d'un tableau pour stocker les résultats de la requête
+        $resultats = array();    
+    // Parcours des résultats de la requête et stockage dans le tableau $resultats
+        while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+            $resultats[] = $ligne;
+        }    
+    // Retour du tableau contenant tous les résultats
+        return $resultats;
+    }
+
+    function getTotalAstuces(){
+        $query = "SELECT COUNT(*) as total FROM astuce";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'];
+    }
+
+    //supprimer le commentaire
+    public function deleteAstuce($id_astuce){
+        $query = "DELETE FROM astuce WHERE id_astuce =:id_astuce";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_astuce', $id_astuce);
+        $req->execute();
+
+        return $req->rowCount() >0;
+    }
+
+
+
+
 
 
 }

@@ -78,11 +78,11 @@ if(isset($_POST['attribuer'])){
             Nombre d'etoiles : <br>
             <select name="etoile" id="pet-select">
                 <option  value="">--Attribuer des étoiles--</option>
-                <option name="etoile" value="01">01</option>
-                <option name="etoile" value="02">02</option>
-                <option name="etoile" value="03">03</option>
-                <option name="etoile" value="04">04</option>
-                <option name="etoile" value="05">05</option>
+                <option name="etoile" value="1">1</option>
+                <option name="etoile" value="2">2</option>
+                <option name="etoile" value="3">3</option>
+                <option name="etoile" value="4">4</option>
+                <option name="etoile" value="5">5</option>
             </select>
             <br>
             Attribuer :

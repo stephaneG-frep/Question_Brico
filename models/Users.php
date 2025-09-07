@@ -163,6 +163,18 @@ class Users{
                 $req_questions->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
                 $req_questions->execute();
 
+                $query = ("DELETE FROM astuce WHERE id_user = :id_user");
+                $dbConnexion = $this->db->getConnexion();
+                $req_astuces = $dbConnexion->prepare($query);   
+                $req_astuces->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
+                $req_astuces->execute();
+
+                $query = ("DELETE FROM commentaire WHERE id_user = :id_user");
+                $dbConnexion = $this->db->getConnexion();
+                $req_commentaires = $dbConnexion->prepare($query);   
+                $req_commentaires->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
+                $req_commentaires->execute();
+
                 $query = ("DELETE FROM users WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_users = $dbConnexion->prepare($query);
