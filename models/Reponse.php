@@ -40,7 +40,6 @@ class Reponse{
     }
 
     public function reponseByIdUser($id_user){
-        $query = "SELECT * FROM reponse WHERE id_user = :id_user";
         $query = "SELECT 
         p.id_reponse,p.reponse,
         u.id_user,u.nom,u.prenom,u.photo_profil,u.email

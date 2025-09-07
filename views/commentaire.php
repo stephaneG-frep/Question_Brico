@@ -34,11 +34,11 @@ $commentaires = $commentaire->getAllCommentaires();
 ?>
 <div class="content">
 
-        <div class="annonces-list">
+            <div class="annonces-list">
             <?php foreach ($commentaires as $commentaire): ?>
                 <div class="annonce-card">
                     <div class="annonce-header">
-                        <img src="../uploads/photo_profil/<?=$commentaire['photo_profil'] ?>" alt="Photo de profil" class="user-photo">
+                        <img src="../uploads/photo_profil/<?=$commentaire['photo_profil'] ?>" alt="Photo de profil" class="user-photo">                   
                         <div class="user-info">
                             <h3><?= htmlspecialchars($commentaire['prenom'] . ' ' . $commentaire['nom']) ?></h3>
                             <h3><?=$commentaire['email']?></h3>
@@ -46,13 +46,13 @@ $commentaires = $commentaire->getAllCommentaires();
                     </div>
                     
                     <div class="annonce-details">
-                        <p class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</p>
-                        
-                        <p class="description"><?= $commentaire['commentaire'];?></p>
+                        <h5 class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</h5>                       
+                        <h6 class="description"><?= $commentaire['commentaire'];?></h6>
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
+            </div>
+
 </div>
 
 <?php require_once "../include/footer.php"; ?>

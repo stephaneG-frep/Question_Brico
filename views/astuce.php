@@ -51,18 +51,15 @@ $astuces = $astuce->getAllAstuces();
                     <div class="question-text"><H5>
                             <?=nl2br(htmlspecialchars($astuce['astuce'])) ?>
                         </h5>
-                    </div>
-                    
-                   
-                    <!-- Afficher les images si elles existent -->
-                            
+                    </div>                   
+                    <!-- Afficher les images si elles existent -->                            
                          <?php if (!empty($astuce['image_1']) || !empty($astuce['image_2']) || 
                                 !empty($astuce['image_3'])): ?>
                                 <div class="question-images">
                             <?php for ($i = 1; $i <= 3; $i++):
                                     $image = $astuce["image_$i"] ?>
                                     <?php if (!empty($image)): ?>                                 
-                                        <img src="../uploads/img/ <?= $image; ?>" alt="Image de l'astuce">
+                                        <img src="../uploads/img/<?= htmlspecialchars($image) ?>" alt="Image de l'astuce">
                                     <?php endif ?>
                             <?php endfor; ?>
                                 </div>

@@ -41,12 +41,12 @@ if (isset($_SESSION['id_user'])) {
                 <p class="dash">Email : '.$email.'</p> 
                 <br>
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
-                    <a class="dashboard" href="question.php"><i class="fa-solid fa-question"></i> poser une question</a>
-                    <a class="dashboard" href="deconnexion.php"><i class="fas fa-sign-out-alt"></i>Se déconnecter</a>
-                    <a class="dashboard" href="change_profil.php">Changer le profil</a>
-                    <a class="dashboard" href="se_desinscrire.php">Se désinscrire</a>
-                    <a class="dashboard" href="post_astuce.php"><i class="fa-solid fa-lightbulb"></i> poster une astuces</a>
-                    <a class="dashboard" href="post_commentaire.php"> Poster un commentaire</a>
+                    <a class="dashboard" href="question.php"><i class="fa-solid fa-question"></i> Poser une question</a>
+                    <a class="dashboard" href="deconnexion.php"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+                    <a class="dashboard" href="change_profil.php"><i class="fa-solid fa-id-card-clip"></i> Changer le profil</a>
+                    <a class="dashboard" href="se_desinscrire.php"><i class="fa-solid fa-user-slash"></i> Se désinscrire</a>
+                    <a class="dashboard" href="post_astuce.php"><i class="fa-solid fa-lightbulb"></i> Poster une astuces</a>
+                    <a class="dashboard" href="post_commentaire.php"><i class="fa-solid fa-comments"></i> Poster un commentaire</a>
             </section>
     
         </div>';
@@ -54,8 +54,6 @@ if (isset($_SESSION['id_user'])) {
 
 <h2 class="dashboard-title">Mes questions</h2>
 <p>Merci de supprimer vos questions au bout de 3 semaines...</p>
-<br><br>
-
 
 <div class="container">
 <?php
@@ -100,7 +98,7 @@ if (isset($_SESSION['id_user'])) {
             $reponse = new Reponse();
             $reponses = $reponse->getReponsesForQuestion($question['id_question']);
 
-            if (!empty($reponses)) {
+            if (!empty($reponses)) {  
                 echo '<div class="reponses">';
                 foreach ($reponses as $reponse) {
                     echo '<div class="reponse">';
@@ -115,21 +113,17 @@ if (isset($_SESSION['id_user'])) {
         echo '</div>';
     } ?>
 
-
-
-
         <h2 class="dashboard-title">Mes Réponses</h2>
         <p>Merci de supprimer vos réponses au bout de 3 semaines...</p>
-        <br><br>
-
-
         
         <?php
 
             $new_reponse = new Reponse();
             $reponses = $new_reponse->reponseByIdUser($id_user);
 
-            if (!empty($reponses)) {
+            if (empty($reponses)) {
+                echo "<p class='no_question'>Aucune reponse trouvée.</p>";   
+            }else{ 
                 echo '<div class="reponses">';
                 foreach ($reponses as $reponse) {
                     echo '<div class="reponse">';
@@ -145,6 +139,90 @@ if (isset($_SESSION['id_user'])) {
                 }
                 echo '</div>';
             }
+         ?>
+            <h2 class="dashboard-title">Mes Astuces</h2>
+            <p>Merci de supprimer vos astuces au bout de 3 semaines...</p>
+        <?php    
+            $new_astuce = new Astuce();
+            $astuces = $new_astuce->astuceByIdUser($id_user);
+        ?>
+        
+        <?php if (empty($astuces)): ?>
+                <p class='no_question'>Aucune astuce trouvée.</p> 
+        <?php endif; ?>
+        <?php if(!empty($astuces)): ?> 
+            <div class="annonces-list">
+            <?php foreach ($astuces as $astuce): ?>
+                <div class="question">
+                    <div class="annonce-header">
+                        <img src="../uploads/photo_profil/<?=$astuce['photo_profil'] ?>" alt="Photo de profil" class="user-photo">
+                        <div class="user-info">
+                            <h3><?= htmlspecialchars($astuce['prenom'] . ' ' . $astuce['nom']) ?></h3>
+                            <h3><?=$astuce['email']?></h3>
+                        </div>
+                        
+                    </div>
+                    <div class="question-text"><H5>
+                            <?=nl2br(htmlspecialchars($astuce['astuce'])) ?>
+                        </h5>
+                    </div>                   
+                    <!-- Afficher les images si elles existent -->                            
+                         <?php if (!empty($astuce['image_1']) || !empty($astuce['image_2']) || 
+                                !empty($astuce['image_3'])): ?>
+                                <div class="question-images">
+                            <?php for ($i = 1; $i <= 3; $i++):
+                                    $image = $astuce["image_$i"] ?>
+                                    <?php if (!empty($image)): ?>                                 
+                                        <img src="../uploads/img/<?= htmlspecialchars($image) ?>" alt="Image de l'astuce">
+                                    <?php endif ?>
+                            <?php endfor; ?>
+                                </div>
+                        <?php endif; ?>
+                        <a href="delete_astuce.php?id_astuce= <?=$astuce['id_astuce']; ?>"
+                                 class="reply-button">Supprimer</a>
+                        
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </div>
+
+        <h2 class="dashboard-title">Mes Commentaires</h2>
+        <p>Merci de supprimer vos commentaires au bout de 3 semaines...</p> 
+        <?php
+        $new_commentaire = new Commentaire();
+        $commentaires = $new_commentaire->commentaireByIdUser($id_user);
+        ?>
+ 
+        <?php if (empty($commentaires)): ?>
+            <p class='no_question'>Aucun commentaire trouvée.</p> 
+        <?php endif; ?>
+        <?php if(!empty($commentaires)): ?> 
+
+    <div class="content">
+        <div class="annonces-list">
+        <?php foreach ($commentaires as $commentaire): ?>
+            <div class="annonce-card">
+                <div class="annonce-header">              
+                        <img src="../uploads/photo_profil/<?=$commentaire['photo_profil'] ?>" alt="Photo de profil" class="user-photo"> 
+                    <div class="user-info">                     
+                        <h3><?= htmlspecialchars($commentaire['prenom'] . ' ' . $commentaire['nom']) ?></h3>
+                        <h3><?=$commentaire['email']?></h3>
+                        
+                    </div>
+                </div>
+                    <div class="annonce-details">            
+                        <h5 class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</5>                    
+                        <h6 class="description"><?= $commentaire['commentaire'];?></h6>
+                    </div>
+                    <br><br>
+                <a href="delete_commentaire.php?id_commentaire= <?=$commentaire['id_commentaire']; ?>"
+                class="reply-button">Supprimer</a>
+            </div>               
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php
 echo
 '</div>';
 } else { 

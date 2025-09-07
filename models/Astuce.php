@@ -44,7 +44,7 @@ class Astuce{
         return $result;
     }
 
-    //récuperer les tous les commentaires
+    //récuperer toutes les astuces
     public function getAllAstuces(){
     // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
     $query = "SELECT a.id_astuce, a.astuce, a.image_1, a.image_2, a.image_3,
@@ -66,6 +66,7 @@ class Astuce{
         return $resultats;
     }
 
+    //pour l'administrateur 
     function getTotalAstuces(){
         $query = "SELECT COUNT(*) as total FROM astuce";
         $dbConnexion = $this->db->getConnexion();
@@ -76,7 +77,40 @@ class Astuce{
         return $result['total'];
     }
 
-    //supprimer le commentaire
+    //astuce par l'id de l'utilisateur
+    public function astuceByIdUser($id_user){
+        $query = "SELECT 
+        a.id_astuce,a.astuce,a.image_1,a.image_2,a.image_3,
+        u.id_user,u.nom,u.prenom,u.photo_profil,u.email
+        FROM astuce a
+        JOIN users u ON a.id_user = u.id_user
+        WHERE u.id_user = :id_user
+        ORDER BY a.id_astuce DESC;";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_user',$id_user);
+        $req->execute();
+        $resultats = array();    
+        // Parcours des résultats de la requête et stockage dans le tableau $resultats
+            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+                $resultats[] = $ligne;
+            } 
+        return $resultats;   
+    }
+
+     //vérifier l'id de l'utilisateur et de l'astuce
+     public function idUserAndIdAstuce($id_astuce){
+        $query = "SELECT id_user FROM astuce WHERE id_astuce = :id_astuce";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $question = "";
+        $req->bindParam(':id_astuce', $id_astuce, PDO::PARAM_INT);
+        $req->execute();
+        $question = $req->fetch();
+        return $question;
+    }
+
+    //supprimer les astuces
     public function deleteAstuce($id_astuce){
         $query = "DELETE FROM astuce WHERE id_astuce =:id_astuce";
         $dbConnexion = $this->db->getConnexion();

@@ -65,6 +65,40 @@ class Commentaire{
         return $resultats;
     }
 
+     //astuce par l'id de l'utilisateur
+     public function commentaireByIdUser($id_user){
+        $query = "SELECT 
+        c.id_commentaire,c.commentaire, c.etoile,
+        u.id_user,u.nom,u.prenom,u.photo_profil,u.email
+        FROM commentaire c
+        JOIN users u ON c.id_user = u.id_user
+        WHERE u.id_user = :id_user
+        ORDER BY c.id_commentaire DESC;";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_user',$id_user);
+        $req->execute();
+        $resultats = array();    
+        // Parcours des résultats de la requête et stockage dans le tableau $resultats
+            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+                $resultats[] = $ligne;
+            } 
+        return $resultats;   
+    }
+
+    //vérifier l'id de l'utilisateur et du commentaire
+    public function idUserAndIdCommentaire($id_commentaire){
+        $query = "SELECT id_user FROM commentaire WHERE id_commentaire = :id_commentaire";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $question = "";
+        $req->bindParam(':id_commentaire', $id_commentaire, PDO::PARAM_INT);
+        $req->execute();
+        $question = $req->fetch();
+        return $question;
+    }
+
+
     function getTotalCommentaires(){
         $query = "SELECT COUNT(*) as total FROM commentaire";
         $dbConnexion = $this->db->getConnexion();
