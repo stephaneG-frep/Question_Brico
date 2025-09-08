@@ -1,8 +1,9 @@
 <?php
+//gerer les erreurs
 error_reporting(-1);
 ini_set("display_errors", 1);
 
-
+//requerir aux fichiers nécéssaire
 require_once "../models/Users.php";
 require_once "../models/Question.php";
 require_once "../models/Image.php";
@@ -13,22 +14,25 @@ require_once "../include/nav_burger.php";
 //require_once "../include/navnav.php";
 //require_once "../include/navigation.php";
 require_once "../include/header.php";
-
-
+/*
+instancier la question (creer l'objet) et appeler la fonction 
+getAllQuestion une instance de classe (requete SQL qui ramene 
+toutes les question (class Question))
+*/
 $question = new Question();
-//$questions = $question->getQuestionAndImageAndUser();
 $questions = $question->getAllQuestion();
 
 ?>
  <h2>Questions récentes</h2>
  <br><hr>
  <?php
+ //si pas de question
  if (empty($questions)) {
     echo "<p class='no_question'>Aucune question trouvée.</p>";
 ?>
 <div class="container">
         <?php
-
+         //si il y a des question foreach pour faire la boucle et afficher tous
         } else {
             foreach ($questions as $question) {
                 echo '<div class="question">';
@@ -62,7 +66,12 @@ $questions = $question->getAllQuestion();
                         . $question['id_question'] . '" class="reply-button">Répondre</a>';
                     echo '</div>';
 
-                    // Afficher les réponses existantes
+                    /*
+                    Afficher les réponses existantes
+                    instancier une reponse et faire appel a la fonction
+                    getReponsesForQuestion (requete SQL qui met en relation 
+                    les utilisateur la question et la reponse)
+                    */
                     $reponse = new Reponse();
                     $reponses = $reponse->getReponsesForQuestion($question['id_question']);
 
