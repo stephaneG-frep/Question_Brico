@@ -67,6 +67,16 @@ class Users{
         
     }
 
+     //méthode de récupération l'user par le role
+     public function getByRole($role){
+        $query = "SELECT * FROM users WHERE role = :role";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':role',$role);
+        $req->execute();
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
     //méthode de récupération de l'utilisateur par son id
     public function getUserById($id_user){
         $query = "SELECT * FROM users WHERE id_user = :id_user";
@@ -75,22 +85,6 @@ class Users{
         $req->bindParam(':id_user',$id_user);
         $req->execute();
         return $req->fetch(PDO::FETCH_ASSOC);
-    }
-
-      /**
-     * Vérifie les credentials de connexion
-     * @param string $email - Email de l'utilisateur
-     * @param string $password - Mot de passe en clair
-     * @return array|false - Données de l'utilisateur ou false si échec
-     */
-    public function checkCredentials($email, $password) {
-        $user = $this->getUserByEmail($email);
-        
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
-        }
-        
-        return false;
     }
 
 
@@ -185,6 +179,80 @@ class Users{
 
                 return $req_users->fetchAll();
     }
+
+        function getUser($limit=null,$page=null)
+        {
+        $query = 'SELECT * FROM users ORDER BY id_user DESC';
+            //connexiona la BDD
+            $dbConnexion = $this->db->getConnexion();
+    
+        if ($limit && !$page) {
+            $query .= ' LIMIT :limit';
+        }
+        if ($page) {
+            $query .= " LIMIT :offset, :limit";
+        }
+    
+        $req = $dbConnexion->prepare($query);
+    
+        if ($limit) {
+            $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+        if ($page) {
+            $offset = ($page - 1) * $limit;
+            $req->bindValue(":offset", $offset, PDO::PARAM_INT);
+        }
+        
+        $req->execute();
+        $users = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
+    
+    //compter les utilisateurs pour l'admin
+    public function getTotalUsers(){
+        $query = "SELECT COUNT(*) as total FROM users";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'];
+    }
+
+    public function AllUsers(){
+        // Définition de la requête SQL pour récupérer les utilisateurs
+            $query = "SELECT * FROM users ORDER BY id_user DESC";   
+        // Obtention de la connexion à la base de données
+            $dbConnexion = $this->db->getConnexion();    
+        // Préparation de la requête SQL
+            $req = $dbConnexion->prepare($query);    
+        // Exécution de la requête SQL
+            $req->execute();    
+        // Initialisation d'un tableau pour stocker les résultats de la requête
+            $resultats = array();   
+        // Parcours des résultats de la requête et stockage dans le tableau $resultats
+            while($ligne = $req->fetch(PDO::FETCH_ASSOC)){
+                $resultats[] = $ligne;
+            }    
+        // Retour du tableau contenant tous les résultats
+            return $resultats;
+        }
+
+        public function deleteUser($id_user){
+            //requete sql
+            $query = "DELETE FROM users WHERE id_user = :id_user";
+            //connexion 
+            $dbConnexion = $this->db->getConnexion();
+            //preparation
+            $req = $dbConnexion->prepare($query);
+            //lier les parametters
+            $req->bindParam(':id_user',$id_user);
+            //executer
+            $req->execute();
+            //retourner le nombres de lignes
+            return $req->rowCount() > 0;
+        }
+   
 
     
 
