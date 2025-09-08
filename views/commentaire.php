@@ -46,7 +46,7 @@ $commentaires = $commentaire->getAllCommentaires();
                     </div>
                     
                     <div class="annonce-details">
-                        <h5 class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</h5>                       
+                        <h5 class="etoile"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</h5>                       
                         <h6 class="description"><?= $commentaire['commentaire'];?></h6>
                     </div>
                 </div>

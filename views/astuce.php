@@ -39,7 +39,7 @@ $astuces = $astuce->getAllAstuces();
 
         <div class="annonces-list">
             <?php foreach ($astuces as $astuce): ?>
-                <div class="question">
+                <div class="question-astuce">
                     <div class="annonce-header">
                         <img src="../uploads/photo_profil/<?=$astuce['photo_profil'] ?>" alt="Photo de profil" class="user-photo">
                         <div class="user-info">

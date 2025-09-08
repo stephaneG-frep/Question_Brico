@@ -89,8 +89,7 @@ input, label{
     margin: auto;
 }
 .connect{
-    margin: auto;
-  
+    margin: auto; 
     width: 380px;
     background-color: #306b08;
     color: rgb(97, 152, 201);
@@ -158,7 +157,7 @@ h2 {
     display: inline;
     justify-content: center;
     text-align: justify;
-    max-width: 1200px;
+    width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
     margin-bottom: 30px;
@@ -178,7 +177,7 @@ h2 {
     box-shadow: 10px 5px 5px #abd7e0;
     border:2px solid #290409;
     border-radius: 0px 40px 40px 20px;
-    max-width: 1000px;
+    width: 1000px;
     height: auto;
 }
 
@@ -204,6 +203,7 @@ h2 {
     max-width: 800px;
     color: #290409;
     background-color: #abd7e0;
+    padding: 8px;
 }
 .question-author {
     background-color: #467046;
@@ -240,6 +240,20 @@ h2 {
     max-width: 1000px;
     height: auto;
 }
+/* astuce */
+.question-astuce {
+    display: inline-block;
+    flex-wrap: wrap;
+    background-color: rgb(190, 63, 63);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 10px 5px 5px #df7373;
+    border:2px solid #290409;
+    border-radius: 0px 40px 40px 20px;
+    width: 1000px;
+    height: auto;
+}
 /* p h1 h2 ext...*/
 h1 {
     display: grid;
@@ -267,8 +281,8 @@ p {
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
-    color: #6da72f;   
-    text-shadow: #0b323b 2px 3px;
+    color: #cfccff;   
+    text-shadow: #244047 2px 3px;
  }
 
 /*se desinscrire*/
@@ -324,8 +338,8 @@ footer {
 .burger-btn {
     position: fixed;
     top: 20px;
-    right: 20px;
-    width: 120px;
+    right: 60px;
+    width: 50px;
     height: 60px;
     background: #2c3e50;
     border: none;
@@ -340,7 +354,7 @@ footer {
 }
 
 .burger-line {
-    width: 85px;
+    width: 45px;
     height: 3px;
     background: white;
     transition: 0.8s;
@@ -394,12 +408,14 @@ footer {
 .user-profile {
     display: flex;
     align-items: center;
-    margin-left: 15px;
+   
 }
-
+.name-burger{
+    margin-left: 40px;
+}
 .user-photo {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 8px;
@@ -425,7 +441,11 @@ footer {
     padding: 0 20px;
     margin-bottom: 30px;
 }
-
+.etoile{
+    background-color: #62af65;
+    width: 85px;
+    padding: 12px;
+}
 .annonces-list { 
     flex-wrap: wrap;
     justify-content: center;    
@@ -460,7 +480,7 @@ footer {
 }
 .user-info h3 {
     margin: 0;
-    color: #2c3e50;
+    color: #131f2b;
 }
 .annonce-details {
     margin-top: 15px;
@@ -468,6 +488,12 @@ footer {
 .annonce-details h2 {
     margin: 0 0 10px 0;
     color: #3498db;
+}
+/*  admin */
+.admin{
+    background-color: #5e0303;
+    padding: 10px;
+    width: 200px;
 }
 
 

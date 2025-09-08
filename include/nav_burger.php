@@ -45,10 +45,12 @@ if (isset($_SESSION['id_user'])) {
 
     <?php if ($is_logged_in): ?>
             <div class="user-profile">
+            <a href="#" class="name-burger"><?= $prenom ?></a>
                 <?php if (!empty($image)): ?>
-                    <img src="../uploads/photo_profil/<?= $image ?>" alt="Photo de profil" class="user-photo">
+                    <img src="../uploads/photo_profil/<?= $image ?>"                     
+                    alt="Photo de profil" class="user-photo">                    
                 <?php endif; ?>
-                <a href="#"><i class="fas fa-tachometer-alt"></i><?= $prenom ?></a>
+                <a href="#" class="name-burger"><?= $prenom ?></a>
             </div>
     <?php endif; ?>
 

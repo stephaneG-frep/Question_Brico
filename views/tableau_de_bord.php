@@ -27,6 +27,7 @@ if (isset($_SESSION['id_user'])) {
     $prenom = $user['prenom'];
     $email = $user['email'];
     $image = $user['photo_profil'];
+    $role = $user['role'];
 
         echo '
 
@@ -39,6 +40,7 @@ if (isset($_SESSION['id_user'])) {
                 <p class="dash">Nom : '.$nom.'</p>
                 <p class="dash">Prénom : '.$prenom.'</p>
                 <p class="dash">Email : '.$email.'</p> 
+                <p class="dash">Role : '.$user['role'].'</p>
                 <br>
                 <p class="dash">Vous pouvez maintenant accéder à toutes les fonctionnalités réservées à nos utilisateurs inscrits.</p>
                     <a class="dashboard" href="question.php"><i class="fa-solid fa-question"></i> Poser une question</a>
@@ -51,6 +53,13 @@ if (isset($_SESSION['id_user'])) {
     
         </div>';
  ?>
+ <?php
+    if($user['role'] === "admin"){
+?>
+    <p class="admin"><a href="../admin/index.php">Dashboard</a></p>
+<?php
+}
+?>
 
 <h2 class="dashboard-title">Mes questions</h2>
 <p>Merci de supprimer vos questions au bout de 3 semaines...</p>
@@ -153,7 +162,7 @@ if (isset($_SESSION['id_user'])) {
         <?php if(!empty($astuces)): ?> 
             <div class="annonces-list">
             <?php foreach ($astuces as $astuce): ?>
-                <div class="question">
+                <div class="question-astuce">
                     <div class="annonce-header">
                         <img src="../uploads/photo_profil/<?=$astuce['photo_profil'] ?>" alt="Photo de profil" class="user-photo">
                         <div class="user-info">
@@ -211,7 +220,7 @@ if (isset($_SESSION['id_user'])) {
                     </div>
                 </div>
                     <div class="annonce-details">            
-                        <h5 class="departement"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</5>                    
+                        <h5 class="etoile"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</5>                    
                         <h6 class="description"><?= $commentaire['commentaire'];?></h6>
                     </div>
                     <br><br>

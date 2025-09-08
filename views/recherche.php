@@ -31,7 +31,7 @@ if(isset($_SESSION['id_user'])){
 ?>
 
 
- <div class="content">
+ <div class="container">
         <h1>Rechercher des questions</h1>
         <form method="GET" class="search-form">
             <input 
