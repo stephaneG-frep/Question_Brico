@@ -151,7 +151,15 @@ if(isset($_POST['envoyer'])){
         <option name="theme" value="Peinture">04 :Peinture</option>
         <option name="theme" value="Sols">05 :Sols</option>
         <option name="theme" value="Electronique">06 :Electronique</option>
-        <option name="theme" value="Mecanique">07:Mecanique</option>
+        <option name="theme" value="Mecanique">07 :Mecanique</option>
+        <option name="theme" value="Jardinage">08 :Jadinage</option>
+        <option name="theme" value="Soudure">09 :Soudure</option>
+        <option name="theme" value="Modelisme">10 :Modelisme</option>
+        <option name="theme" value="Plomberie">11 :Plomberie</option>
+        <option name="theme" value="Serrurerie">12 :Serrurerie</option>
+        <option name="theme" value="Ferronnerie">13 :Ferronnerie</option>
+        <option name="theme" value="Carrosserie">14 :Carrosserie</option>
+        <option name="theme" value="Pneumatique">15 :Pneumatique</option>
     </select>
         <br><br>
        <p> Votre question : </p><br>

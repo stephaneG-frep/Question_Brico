@@ -1,4 +1,8 @@
 <?php
+/*
+ici les functions de classe (instance de classe) 
+des requtes SQL pour gérer les commentaires
+*/
 
 require_once "../db/Database.php";
 
@@ -12,6 +16,7 @@ class Commentaire{
         $this->db = Database::getInstance();
     }
 
+    //enregistrer les commentaires en BDD
     public function registerCommentaire($commentaire,$etoile,$id_user){
         //requete sql
         $query = "INSERT INTO commentaire(commentaire,etoile,id_user)
@@ -25,7 +30,8 @@ class Commentaire{
         return $req->rowCount() > 0;
 
     }
-
+ 
+    //récuperer le commentaire par son id
     public function getCommentaireById($id_commentaire){
         // Définition de la requête SQL pour récupérer une annonce par son identifiant
         $query = "SELECT * FROM commentaire WHERE id_commentaire = :id_commentaire";   
@@ -43,9 +49,8 @@ class Commentaire{
         return $result;
     }
 
-    //récuperer les tous les commentaires
+    //récuperer tous les commentaires avec jointure sur l'utilisateur
     public function getAllCommentaires(){
-    // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
     $query = "SELECT c.id_commentaire, c.commentaire, c.etoile,
             c.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil FROM commentaire c
             JOIN users u ON c.id_user = u.id_user ORDER BY c.id_commentaire DESC";
@@ -65,7 +70,7 @@ class Commentaire{
         return $resultats;
     }
 
-     //astuce par l'id de l'utilisateur
+     //commentaire par l'id de l'utilisateur
      public function commentaireByIdUser($id_user){
         $query = "SELECT 
         c.id_commentaire,c.commentaire, c.etoile,
@@ -98,7 +103,7 @@ class Commentaire{
         return $question;
     }
 
-
+    //compter les commentaires pour l'admin
     function getTotalCommentaires(){
         $query = "SELECT COUNT(*) as total FROM commentaire";
         $dbConnexion = $this->db->getConnexion();

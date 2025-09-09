@@ -49,7 +49,7 @@
                 </li>
 
                 <li>
-                    <a href="./users.php" class="nav-link text-white">
+                    <a href="./question.php" class="nav-link text-white">
                     <i class="bi bi-person-circle"></i>
                         </svg>
                         Questions:
@@ -57,7 +57,7 @@
                 </li>
 
                 <li>
-                    <a href="./commentaires.php" class="nav-link text-white">
+                    <a href="./reponse.php" class="nav-link text-white">
                     <i class="bi bi-tencent-qq"></i>
                         </svg>
                         Reponses:
@@ -65,7 +65,7 @@
                 </li>
 
                 <li>
-                    <a href="./users.php" class="nav-link text-white">
+                    <a href="./astuce.php" class="nav-link text-white">
                     <i class="bi bi-person-circle"></i>
                         </svg>
                         Astuces:
@@ -73,7 +73,7 @@
                 </li>
        
                 <li>
-                    <a href="./annonces.php" class="nav-link text-white">
+                    <a href="./commentaire.php" class="nav-link text-white">
                     <i class="bi bi-image"></i>
                         </svg>
                         Commentaires:
@@ -81,7 +81,7 @@
                 </li>
 
                 <li>
-                    <a href="users.php" class="nav-link text-white">
+                    <a href="./admin.php" class="nav-link text-white">
                     <i class="bi bi-people"></i>
                         Administrateurs:
                     </a>

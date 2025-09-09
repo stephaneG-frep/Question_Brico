@@ -96,6 +96,16 @@ class Reponse{
         return $req->rowCount() >0;
     }
 
+    function getTotalReponses(){
+        $query = "SELECT COUNT(*) as total FROM reponse";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->execute();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+
+        return $result['total'];
+    }
+
 
 }
 ?>
