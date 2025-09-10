@@ -29,6 +29,15 @@ if (isset($_SESSION['id_user'])) {
     $image = $user['photo_profil'];
     $role = $user['role'];
 
+
+    if($user['role'] === "admin"){
+?>
+    <li><a href="../admin/administration.php"><i class="fas fa-user-shield"></i> Gérer les rôles</a></li>
+<?php
+}
+?>
+<?php
+
         echo '
 
         <br><br>
@@ -53,10 +62,11 @@ if (isset($_SESSION['id_user'])) {
     
         </div>';
  ?>
+ 
  <?php
     if($user['role'] === "admin"){
 ?>
-    <p class="admin"><a href="../admin/index.php">Dashboard</a></p>
+    <p class="admin"><a href="../admin/index.php">Administration</a></p>   
 <?php
 }
 ?>

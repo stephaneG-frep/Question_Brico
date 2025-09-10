@@ -68,13 +68,24 @@ class Users{
     }
 
      //méthode de récupération l'user par le role
-     public function getByRole($role){
+     public function getByRole($new_role){
+      
         $query = "SELECT * FROM users WHERE role = :role";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
-        $req->bindParam(':role',$role);
+        $req->bindParam(':role',$new_role);
         $req->execute();
         return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateRole($id_user,$new_role){
+        $query = "UPDATE users SET role = :role WHERE id_user = :id_user";
+        $dbConnexion = $this->db->getConnexion();
+        $req = $dbConnexion->prepare($query);
+        $req->bindParam(':id_user',$id_user);
+        $req->bindParam(':role',$new_role);
+        $req->execute();
+        return $req->fetchAll();
     }
 
     //méthode de récupération de l'utilisateur par son id
