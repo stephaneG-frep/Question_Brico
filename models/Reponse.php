@@ -23,6 +23,23 @@ class Reponse{
           
     }
 
+    public function reponseById($id_reponse){
+        // Définition de la requête SQL pour récupérer une reponse par son identifiant
+        $query = "SELECT * FROM reponse WHERE id_reponse = :id_reponse";   
+        // Obtention de la connexion à la base de données
+        $dbConnexion = $this->db->getConnexion();   
+        // Préparation de la requête SQL
+        $req = $dbConnexion->prepare($query);   
+        // Liaison du paramètre :id_annonce dans la requête SQL avec la valeur fournie en argument
+        $req->bindParam(':id_reponse', $id_reponse);   
+        // Exécution de la requête SQL
+        $req->execute();   
+        // Récupération du résultat sous forme de tableau associatif
+        $req->fetch(PDO::FETCH_ASSOC);   
+        // Retour du tableau associatif contenant les informations de la production
+        return $id_reponse;
+    }
+
     public function reponseByIdQuestion($id_user, $id_question){
 
         $query = "SELECT * FROM reponse WHERE id_user = :id_user, id_question = :id_question";
