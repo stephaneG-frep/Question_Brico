@@ -9,8 +9,6 @@ require_once "../db/config.php";
 require_once "../models/Users.php";
 
 
-
-
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
 } else {
@@ -53,17 +51,8 @@ $totalPages = ceil($totalUsers / 10);
             <td><img src="<?='../uploads/photo_profil/'.$user['photo_profil'] ?>" alt="" class="rounded rounded-circle" width="100" height="100"></td>
             <td><?=$user['role']?></td>
             <td>
-                <a href="change_role.php?id_user=<?= $user['id_user'] ?>"
-                onclick="return confirm('Êtes-vous sûr de vouloir changer le role ?')">Changer</a>
-                </td>
-            <td>
                 <a href="delete_users.php?id_user=<?= $user['id_user'] ?>"
                     onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">Supprimer</a>
-            </td>
-            <td>
-                
-                <li><a href="administration.php"><i class="fas fa-user-shield"></i> Gérer les rôles</a></li>
-               
             </td>
         </tr>
         <?php }?>

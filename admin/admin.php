@@ -24,15 +24,16 @@ $totalAnnonces = $new_user->getTotalUsers();
 
 $totalPages = ceil($totalAnnonces / 10);
 
+// Traitement du changement de rôle
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-$user_id = $_POST['user_id'] ?? 0;
-$new_role = $_POST['role'] ?? '';
+    $id_user = $_POST['id_user'] ?? 0;
+    $new_role = $_POST['role'] ?? '';
 
-    if ($user_id > 0 && in_array($new_role, ['user', 'moderateur', 'admin'])) {
-        $new_user = new Users();
-        $user = $new_user->updateRole($id_user,$new_role);
+    if ($id_user > 0 && in_array($new_role, ['user', 'moderateur', 'admin'])) {
+        $user_role = new Users();
+        $role = $user_role->updateRole($id_user,$new_role);
     }
-}
+   }
 ?>
 
 <h1 class="py-5">Listes des administrateurs </h1>
@@ -48,7 +49,10 @@ $new_role = $_POST['role'] ?? '';
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($users as $user): ?>
+    <?php 
+     $new_users = new Users();
+     $users = $new_users->AllUsers();
+    foreach ($users as $user): ?>
                     <tr>
                         <td><?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></td>
                         <td><?= htmlspecialchars($user['email']) ?></td>
@@ -57,7 +61,7 @@ $new_role = $_POST['role'] ?? '';
                         </td>
                         <td>
                             <form method="post" style="display: flex; align-items: center;">
-                                <input type="hidden" name="user_id" value="<?= $user['id_user'] ?>">
+                                <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
                                 <select name="role" class="role-select" required>
                                     <option value="user" <?= $user['role'] === 'user' ? 'selected' : '' ?>>Utilisateur</option>
                                     <option value="moderateur" <?= $user['role'] === 'moderateur' ? 'selected' : '' ?>>Modérateur</option>

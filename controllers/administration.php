@@ -3,10 +3,17 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 require '../db/config.php';
 require '../models/Users.php';
+require 'template/header.php';
+
 //require_once "../include/head.php";
-require_once "../include/nav_burger.php";
+//require_once "../include/nav_burger.php";
 //require_once "../include/navigation.php";
 //require_once "../include/header.php";
+if (isset($_GET['page'])) {
+    $page = (int)$_GET['page'];
+} else {
+    $page = 1;
+}
 
 
 // Vérifier que l'utilisateur est administrateur
@@ -39,111 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des rôles - Question_Brico</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .admin-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #2c3e50;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .role-select {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        .update-button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .update-button:hover {
-            background-color: #2980b9;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .role-utilisateur {
-            color: #6c757d;
-        }
-
-        .role-moderateur {
-            color: #17a2b8;
-            font-weight: bold;
-        }
-
-        .role-administrateur {
-            color: #dc3545;
-            font-weight: bold;
-        }
-    </style>
-
 
     <div class="admin-container">
         <h1><i class="fas fa-user-shield"></i> GESTION DES RÔLES</h1>
@@ -209,4 +111,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <?php } ?>
 </body>
+<?php require_once "template/footer.php" ?>
 </html>

@@ -30,14 +30,6 @@ if (isset($_SESSION['id_user'])) {
     $role = $user['role'];
 
 
-    if($user['role'] === "admin"){
-?>
-    <li><a href="../admin/administration.php"><i class="fas fa-user-shield"></i> Gérer les rôles</a></li>
-<?php
-}
-?>
-<?php
-
         echo '
 
         <br><br>
