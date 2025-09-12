@@ -11,11 +11,12 @@ class Reponse{
         $this->db = Database::getInstance();
     }
 
-    public function registerReponse($reponse,$id_user,$id_question){
-        $query = "INSERT INTO reponse(reponse,id_user,id_question)
-                 VALUES(:reponse, :id_user, :id_question)";
+    public function registerReponse($date,$reponse,$id_user,$id_question){
+        $query = "INSERT INTO reponse(date,reponse,id_user,id_question)
+                 VALUES(:date,:reponse, :id_user, :id_question)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query); 
+        $req->bindParam(':date',$date);
         $req->bindParam(':reponse', $reponse, PDO::PARAM_STR);
         $req->bindParam(':id_user', $id_user, PDO::PARAM_INT);
         $req->bindParam(':id_question', $id_question, PDO::PARAM_INT);      
@@ -24,7 +25,7 @@ class Reponse{
     }
 
     public function AllReponses(){
-        $query = "SELECT r.id_reponse, r.reponse, 
+        $query = "SELECT r.id_reponse,r.date, r.reponse, 
             r.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil 
             FROM reponse r
             JOIN users u ON r.id_user = u.id_user 
@@ -80,7 +81,7 @@ class Reponse{
 
     public function reponseByIdUser($id_user){
         $query = "SELECT 
-        p.id_reponse,p.reponse,
+        p.id_reponse,p.date,p.reponse,
         u.id_user,u.nom,u.prenom,u.photo_profil,u.email
         FROM reponse p
         JOIN users u ON p.id_user = u.id_user

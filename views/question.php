@@ -31,11 +31,13 @@ if (isset($_SESSION['id_user'])) {
 }
 
 if(isset($_POST['envoyer'])){
-
+    $date = htmlspecialchars($_POST['date']);
     $theme = htmlspecialchars($_POST['theme']);
     $question = htmlspecialchars($_POST['question']);
     
-    if(empty($_POST['theme'])){
+    if(empty($_POST['date'])){
+        $message = "N'oublier pas la date";
+    }elseif(empty($_POST['theme'])){
         $message = "Choisir un theme";
     }elseif(empty($_POST['question'])){
         $message = "Ecrir une petite question";
@@ -112,7 +114,7 @@ if(isset($_POST['envoyer'])){
                 }
             
             $newQuestion = new Question();
-            $question = $newQuestion->registerQuestion($theme,$question,$image_1,$image_2,
+            $question = $newQuestion->registerQuestion($date, $theme,$question,$image_1,$image_2,
                                $image_3,$image_4,$image_5, $id_user);
            
                                         
@@ -141,8 +143,11 @@ if(isset($_POST['envoyer'])){
     <h2 class="h2">Votre question</h2>
 
     <form method="POST" action="" enctype="multipart/form-data">
-       <br>
-       <p> Quelle est le theme de bricolage : </p><br>
+    <br>
+    <p>La date du jour : </p><br>
+    <input type="text" name="date" placeholder="date du jour">
+    <br>     
+    <p> Quelle est le theme de bricolage : </p><br>
     <select name="theme" id="pet-select">
         <option  value="">--Quel est le theme de la quetion--</option>
         <option name="theme" value="Electricite">01 :Electricite</option>

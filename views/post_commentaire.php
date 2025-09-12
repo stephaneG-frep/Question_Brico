@@ -37,10 +37,13 @@ if (isset($_SESSION['id_user'])) {
 //si on poste "attribuer"
 if(isset($_POST['attribuer'])){
     //alors l'avis est vérifier pour la sécuritée
+    $date = htmlspecialchars($_POST['date']);
     $commentaire = htmlspecialchars($_POST['commentaire']);
     $etoile = htmlspecialchars($_POST['etoile']);
     //tous doit etre remplis dans le formulaire
-    if(empty($_POST['commentaire'])){
+    if(empty($_POST['date'])){
+        $message = "N'oublier pas la date";
+    }elseif(empty($_POST['commentaire'])){
         $message = "Ecrire un commentaire";
     }elseif(empty($_POST['etoile'])){
         $message = "Attribuer au moins une étoile";
@@ -49,7 +52,7 @@ if(isset($_POST['attribuer'])){
         $etoile = $_POST['etoile'];
         //instancier un nouvel avis et méthode de la requete SQL
         $new_commentaire = new Commentaire();
-        $result = $new_commentaire->registerCommentaire($commentaire,$etoile,$id_user);
+        $result = $new_commentaire->registerCommentaire($date, $commentaire,$etoile,$id_user);
 
         if($result){
             header("location: ../public/index.php");
@@ -71,6 +74,9 @@ if(isset($_POST['attribuer'])){
     <?php if(isset($message)) echo "<div class='erreurs'>".$message."</div>"; ?>
 
         <form method="POST" action="">
+            Date du jour : <br>
+            <input type="text" name="date" placeholder="la date du jour">
+            <br>
             Commentaire : <br>
             <textarea type="text" name="commentaire" cols="40px" rows="10px"
              placeholder="petit commentaire pas trop long"></textarea>    

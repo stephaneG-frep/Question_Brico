@@ -34,6 +34,7 @@ $totalPages = ceil($totalAnnonces / 10);
         <tr>
 
             <th scope="col">#</th>
+            <th scope="col">Date</th>
             <th scope="col">Email</th>
             <th scope="col">Reponse</th>  
         </tr>
@@ -42,6 +43,7 @@ $totalPages = ceil($totalAnnonces / 10);
         <?php foreach($reponses as $reponse) {?>
         <tr>
             <th scope="row"><?=$reponse['id_reponse']?></th>
+            <th><?=$reponse['date']?></th>
             <td><?=$reponse['email']?></td>
             <td><?=$reponse['reponse']?></td>
            

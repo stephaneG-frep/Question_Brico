@@ -13,14 +13,15 @@ class Question{
     }
 
 
-    public function registerQuestion($theme,$question,$image_1,$image_2,$image_3,
+    public function registerQuestion($date,$theme,$question,$image_1,$image_2,$image_3,
                 $image_4,$image_5,$id_user){
 
-        $query = "INSERT INTO question(theme,question,create_date,image_1,image_2,image_3,
+        $query = "INSERT INTO question(date,theme,question,image_1,image_2,image_3,
                             image_4,image_5,id_user)
-                   VALUES(:theme,:question,NOW(),:image_1,:image_2,:image_3,:image_4,:image_5,:id_user)";
+                   VALUES(:date,:theme,:question,:image_1,:image_2,:image_3,:image_4,:image_5,:id_user)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
+        $req->bindParam(':date',$date);
         $req->bindParam(':theme',$theme);
         $req->bindParam(':question',$question);
         $req->bindParam(':image_1',$image_1);
@@ -37,8 +38,8 @@ class Question{
     //question spécifique a un utilisateur
     public function questionByIdUser($id_user){
         $query = "SELECT 
-            q.id_question,q.theme,q.question,
-            q.create_date,q.image_1,q.image_2,
+            q.id_question,q.date,q.theme,q.question,
+            q.image_1,q.image_2,
             q.image_3,q.image_4,q.image_5,
             u.id_user,u.nom,u.prenom,u.photo_profil,u.email
             FROM question q
@@ -86,8 +87,8 @@ class Question{
      //récuperer les toutes annonces     
     // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
     $query = "SELECT 
-                q.id_question,q.theme,q.question,
-                q.create_date,q.image_1,q.image_2,
+                q.id_question,q.date,q.theme,q.question
+                ,q.image_1,q.image_2,
                 q.image_3,q.image_4,q.image_5,
                 u.id_user,u.nom,
                 u.prenom,u.photo_profil,u.email
@@ -141,7 +142,7 @@ class Question{
 
     public function getQuestionByTheme($theme){
            
-        $query = "SELECT q.id_question, q.theme, q.question,q.create_date,q.image_1,q.image_2,
+        $query = "SELECT q.id_question,q.date, q.theme, q.question,q.image_1,q.image_2,
                         q.image_3,q.image_4,q.image_5,
                     u.nom, u.prenom, u.email, u.photo_profil FROM question q
                    JOIN users u ON q.id_user = u.id_user WHERE q.theme LIKE :theme

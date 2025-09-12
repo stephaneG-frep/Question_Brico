@@ -35,7 +35,8 @@ $questions = $question->getAllQuestion();
          //si il y a des question foreach pour faire la boucle et afficher tous
         } else {
             foreach ($questions as $question) {
-                echo '<div class="question">';
+                echo '<div class="question"><p>Posté le : '
+            . htmlspecialchars($question['date']) .'</p>';
                         
                             echo '<div class="question-theme">' 
                                     . htmlspecialchars($question['theme']) . 
@@ -78,7 +79,8 @@ $questions = $question->getAllQuestion();
                     if (!empty($reponses)) {
                         echo '<div class="reponses">';
                         foreach ($reponses as $reponse) {
-                            echo '<div class="reponse">';
+                            echo '<div class="reponse"><p>Posté le : '
+                                . htmlspecialchars($reponse['date']) .'</p>';
                                 echo '<h5><strong>une reponse de : <br>' . htmlspecialchars($reponse['prenom'] . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</h5>';
                             echo '</div><hr>';
                         }

@@ -11,13 +11,14 @@ class Astuce{
         $this->db = Database::getInstance();
     }
 
-    public function registerAstuce($astuce,$image_1,$image_2,$image_3,$id_user) {
+    public function registerAstuce($astuce,$date,$image_1,$image_2,$image_3,$id_user) {
 
-        $query = "INSERT INTO astuce(astuce,image_1,image_2,image_3,id_user)
-                   VALUES(:astuce,:image_1,:image_2,:image_3,:id_user)";
+        $query = "INSERT INTO astuce(astuce,date,image_1,image_2,image_3,id_user)
+                   VALUES(:astuce,:date,:image_1,:image_2,:image_3,:id_user)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
         $req->bindParam(':astuce',$astuce);
+        $req->bindParam(':date',$date);
         $req->bindParam(':image_1',$image_1);
         $req->bindParam(':image_2',$image_2);
         $req->bindParam(':image_3',$image_3);
@@ -47,7 +48,7 @@ class Astuce{
     //récuperer toutes les astuces
     public function getAllAstuces(){
     // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
-    $query = "SELECT a.id_astuce, a.astuce, a.image_1, a.image_2, a.image_3,
+    $query = "SELECT a.id_astuce, a.astuce, a.date, a.image_1, a.image_2, a.image_3,
             a.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil FROM astuce a
             JOIN users u ON a.id_user = u.id_user ORDER BY a.id_astuce DESC";
     // Obtention de la connexion à la base de données
@@ -80,7 +81,7 @@ class Astuce{
     //astuce par l'id de l'utilisateur
     public function astuceByIdUser($id_user){
         $query = "SELECT 
-        a.id_astuce,a.astuce,a.image_1,a.image_2,a.image_3,
+        a.id_astuce,a.astuce,a.date,a.image_1,a.image_2,a.image_3,
         u.id_user,u.nom,u.prenom,u.photo_profil,u.email
         FROM astuce a
         JOIN users u ON a.id_user = u.id_user

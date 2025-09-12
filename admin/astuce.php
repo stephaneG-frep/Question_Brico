@@ -36,6 +36,7 @@ $totalPages = ceil($totalAnnonces / 10);
             <th scope="col">#</th>
             <th scope="col">Email</th>
             <th scope="col">Astuce</th>
+            <th scope="col">Date</th>
             <th scope="col">Image_1</th>
             <th scope="col">Image_2</th>
             <th scope="col">Image_3</th>
@@ -47,6 +48,7 @@ $totalPages = ceil($totalAnnonces / 10);
             <th scope="row"><?=$astuce['id_astuce']?></th>
             <td><?=$astuce['email']?></td>
             <td><?=$astuce['astuce']?></td>
+            <td><?=$astuce['date']?></td>
             <td><img src="<?='../uploads/img/'.$astuce['image_1'] ?>" alt="" class="rounded rounded-circle" width="100" height="100"></td>
             <td><img src="<?='../uploads/img/'.$astuce['image_2'] ?>" alt="" class="rounded rounded-circle" width="100" height="100"></td>
             <td><img src="<?='../uploads/img/'.$astuce['image_3'] ?>" alt="" class="rounded rounded-circle" width="100" height="100"></td>

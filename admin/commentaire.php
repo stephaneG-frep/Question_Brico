@@ -34,6 +34,7 @@ $totalPages = ceil($totalAnnonces / 10);
         <tr>
 
             <th scope="col">#</th>
+            <th scope="col">Date</th>
             <th scope="col">Email</th>
             <th scope="col">Commentaire</th>
             <th scope="col">Etoile</th>
@@ -44,6 +45,7 @@ $totalPages = ceil($totalAnnonces / 10);
         <?php foreach($commentaires as $commentaire) {?>
         <tr>
             <th scope="row"><?=$commentaire['id_commentaire']?></th>
+            <td><?=$commentaire['date']?></td>
             <td><?=$commentaire['email']?></td>
             <td><?=$commentaire['commentaire']?></td>
             <td><?=$commentaire['etoile']?></td>

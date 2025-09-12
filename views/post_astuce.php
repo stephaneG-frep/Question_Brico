@@ -33,9 +33,13 @@ if (isset($_SESSION['id_user'])) {
 if(isset($_POST['envoyer'])){
 
     $astuce = htmlspecialchars($_POST['astuce']);
+    $date = htmlspecialchars($_POST['date']);
     
     if(empty($_POST['astuce'])){
         $message = "Ecrire une astuce";
+    if(empty($_POST['date'])){
+        $message = "N'oublier pas la date";
+    }
     }else{      
         //$question = new Question();
         //$result = $question->registerQuestion($theme,$question,$id_user,$id_question);
@@ -81,7 +85,7 @@ if(isset($_POST['envoyer'])){
                 $message = "Choisir le bon format(gif,png,jpg,jpeg)";
             }
             $new_astuce = new Astuce();
-            $astuce = $new_astuce->registerAstuce($astuce,$image_1,$image_2,
+            $astuce = $new_astuce->registerAstuce($astuce,$date, $image_1,$image_2,
                                $image_3,$id_user);
                                                    
                 if($astuce){
@@ -108,6 +112,9 @@ if(isset($_POST['envoyer'])){
         <br><br>
        <p> Votre astuce : </p><br>
         <textarea type="text" name="astuce" id="astuce" placeholder="ma petite astuce"></textarea>
+        <br><br>
+       <p> La date : </p><br>
+        <input type="text" name="date" id="date" placeholder="entrer a date du jour">
         <br><br>
        <p> Photo 1 : 
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000">

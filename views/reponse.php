@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $new_reponse = new Reponse();
 
-    if ($reponse = $new_reponse->registerReponse($reponse, $id_user, $id_question)) {
+    if ($reponse = $new_reponse->registerReponse($date, $reponse, $id_user, $id_question)) {
         echo "Réponse ajoutée avec succès !";
     } else {
         echo "Erreur lors de l'ajout de la réponse.";
@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h2 class="h2">Votre reponse</h2>
 
 <form method="post">
+    <p>Date du jour : </p><br>
+    <input type="text" name="date" placeholder="date du jour">
+    <br><br>
    <p> Réponse : <br><br>
     <textarea name="reponse" required></textarea>
     <br>

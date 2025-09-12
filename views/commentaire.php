@@ -46,6 +46,7 @@ $commentaires = $commentaire->getAllCommentaires();
                     </div>
                     
                     <div class="annonce-details">
+                        <p>Posté le : <?= htmlspecialchars($commentaire['date']) ?></p>
                         <h5 class="etoile"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</h5>                       
                         <h6 class="description"><?= $commentaire['commentaire'];?></h6>
                     </div>

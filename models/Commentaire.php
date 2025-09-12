@@ -17,12 +17,13 @@ class Commentaire{
     }
 
     //enregistrer les commentaires en BDD
-    public function registerCommentaire($commentaire,$etoile,$id_user){
+    public function registerCommentaire($date,$commentaire,$etoile,$id_user){
         //requete sql
-        $query = "INSERT INTO commentaire(commentaire,etoile,id_user)
-                  VALUES(:commentaire,:etoile, :id_user)";
+        $query = "INSERT INTO commentaire(date,commentaire,etoile,id_user)
+                  VALUES(:date,:commentaire,:etoile, :id_user)";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
+        $req->bindParam(':date',$date);
         $req->bindParam(':commentaire',$commentaire);
         $req->bindParam(':etoile',$etoile);
         $req->bindParam(':id_user',$id_user);
@@ -51,7 +52,7 @@ class Commentaire{
 
     //récuperer tous les commentaires avec jointure sur l'utilisateur
     public function getAllCommentaires(){
-    $query = "SELECT c.id_commentaire, c.commentaire, c.etoile,
+    $query = "SELECT c.id_commentaire, c.date, c.commentaire, c.etoile,
             c.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil FROM commentaire c
             JOIN users u ON c.id_user = u.id_user ORDER BY c.id_commentaire DESC";
     // Obtention de la connexion à la base de données
@@ -73,7 +74,7 @@ class Commentaire{
      //commentaire par l'id de l'utilisateur
      public function commentaireByIdUser($id_user){
         $query = "SELECT 
-        c.id_commentaire,c.commentaire, c.etoile,
+        c.id_commentaire, c.date, c.commentaire, c.etoile,
         u.id_user,u.nom,u.prenom,u.photo_profil,u.email
         FROM commentaire c
         JOIN users u ON c.id_user = u.id_user

@@ -48,8 +48,10 @@ $astuces = $astuce->getAllAstuces();
                         </div>
                         
                     </div>
-                    <div class="question-text"><H5>
-                            <?=nl2br(htmlspecialchars($astuce['astuce'])) ?>
+                    <div class="question-text">
+                        <p> Posté le : <?= htmlspecialchars($astuce['date'])?></p>
+                        <H5>                            
+                            <?=htmlspecialchars($astuce['astuce'])?>
                         </h5>
                     </div>                   
                     <!-- Afficher les images si elles existent -->                            

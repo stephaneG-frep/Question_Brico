@@ -76,7 +76,8 @@ if (isset($_SESSION['id_user'])) {
         echo "<p class='no_question'>Aucune question trouvée.</p>";   
     }else{
         foreach ($questions as $question) {
-            echo '<div class="question">';
+            echo '<div class="question"><p>Posté le : '
+            . htmlspecialchars($question['date']) .'</p>' ;
                 echo '<div class="question-theme">' 
                         . htmlspecialchars($question['theme']) .
                      '</div>';
@@ -112,7 +113,8 @@ if (isset($_SESSION['id_user'])) {
             if (!empty($reponses)) {  
                 echo '<div class="reponses">';
                 foreach ($reponses as $reponse) {
-                    echo '<div class="reponse">';
+                    echo '<div class="reponse"><p>Posté le : '
+                                . htmlspecialchars($reponse['date']) .'</p>';
                         echo '<h5><strong>Une reponse de : ' . htmlspecialchars($reponse['prenom']
                          . ' ' . $reponse['nom']) . ' :</strong> ' . nl2br(htmlspecialchars($reponse['reponse'])) . '</h5>';
                         echo '</div><hr>';
@@ -173,7 +175,9 @@ if (isset($_SESSION['id_user'])) {
                         </div>
                         
                     </div>
-                    <div class="question-text"><H5>
+                    <div class="question-text">
+                        <p>Posté le : <?= htmlspecialchars($astuce['date'])?></p>
+                        <h5>
                             <?=nl2br(htmlspecialchars($astuce['astuce'])) ?>
                         </h5>
                     </div>                   
@@ -221,7 +225,8 @@ if (isset($_SESSION['id_user'])) {
                         
                     </div>
                 </div>
-                    <div class="annonce-details">            
+                    <div class="annonce-details">
+                        <p>Posté le : <?= htmlspecialchars($commentaire['date']) ?></p>          
                         <h5 class="etoile"><?= htmlspecialchars($commentaire['etoile']) ?> Etoiles</5>                    
                         <h6 class="description"><?= $commentaire['commentaire'];?></h6>
                     </div>
