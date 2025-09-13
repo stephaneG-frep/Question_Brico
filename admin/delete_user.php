@@ -1,27 +1,23 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
+//inclure les fichier nécéssaire
 
-require_once "../session/session.php";
-//adminOnly();
-
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../Users.php";
-
-//$new_user = new Users();
-//$user = $new_user->getUserById($id);
+require_once "template/header.php";//fichier de l'accueil
+require_once "../db/config.php";//fichier de connexion
+require_once "../Users.php";//fichier de classe
 
 
 $user = false;
 $errors = [];
 $messages = [];
-if (isset($_GET["id"])) {
+if (isset($_GET["id"])) {//ramener l'id de l'utilisateur
+    //instancier un user
     $new_user = new Users();
+    //pour ramener les users par leur id
     $user =  $new_user->getUserById( (int)$_GET["id"]);
 }
-if ($user) {
+if ($user) {//si il y a user alors appel a la fonction (instance de classe) delete tel user
     if ($user = $new_user->deleteUser( $_GET["id"])) {
         $messages[] = "L'employer a bien été supprimé";
     } else {

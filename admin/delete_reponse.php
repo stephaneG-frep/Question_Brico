@@ -1,25 +1,23 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
-//adminOnly();
+//inclure les fichier nécéssaire
 
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Reponse.php";
-
-//$new_user = new Users();
-//$user = $new_user->getUserById($id);
+require_once "template/header.php";//fichier de l'accueil
+require_once "../db/config.php";//fichier de connexion
+require_once "../models/Reponse.php";//fichier de classe
 
 
 $reponse = false;
 $errors = [];
 $messages = [];
-if (isset($_GET["id_reponse"])) {
+if (isset($_GET["id_reponse"])) {//ramener l'id de la reponse
+    //instancier une reponse 
     $new_reponse = new Reponse();
+      //pour ramener les reponses par leur id
     $reponse =  $new_reponse->reponseById( (int)$_GET["id_reponse"]);
 }
-if ($reponse) {
+if ($reponse) {//si il y a reponse alors appel a la fonction (instance de classe) delete telle reponse
     if ($reponse = $new_reponse->deleteReponse( $_GET["id_reponse"])) {
         $messages[] = "La reponse à bien été supprimée";
     } else {

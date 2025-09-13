@@ -13,6 +13,7 @@ require_once "../include/head.php";
 //require_once "../include/navigation.php";
 require_once "../include/header.php";
 //require_once "../include/token.php";
+
 // Détermine si l'utilisateur est connecté
 if (isset($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];

@@ -1,25 +1,23 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
-//adminOnly();
+//inclure les fichier nécéssaire
 
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Question.php";
-
-//$new_user = new Users();
-//$user = $new_user->getUserById($id);
+require_once "template/header.php";//fichier de l'accueil
+require_once "../db/config.php";//fichier de connexion
+require_once "../models/Question.php";//fichier de classe 
 
 
 $question = false;
 $errors = [];
 $messages = [];
-if (isset($_GET["id_question"])) {
+if (isset($_GET["id_question"])) {//ramener l'id de la question
+    //instancier une question avec sa class
     $new_question = new Question();
+       //pour ramener les questions par leur id
     $question =  $new_question->questionById( (int)$_GET["id_question"]);
 }
-if ($question) {
+if ($question) {//si il y a question alors appel a la fonction (instance de classe) delete telle question
     if ($question = $new_question->deleteQuestion( $_GET["id_question"])) {
         $messages[] = "La question à bien été supprimée";
     } else {
