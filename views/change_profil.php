@@ -12,7 +12,6 @@ require_once "../include/nav_burger.php";
 //require_once "../include/navigation.php";
 require_once "../include/header.php";
 require_once "../include/token.php";
-//require_once "db/config.php";
 
 //si li y a une session
 if(isset($_SESSION['id_user'])){

@@ -1,7 +1,11 @@
 <?php
+/*
+ici les functions de classe (instance de classe) 
+des requtes SQL pour gérer les questions
+*/
 
 require_once "../db/Database.php";
-require_once "../models/Image.php";
+
 
 class Question{
 
@@ -66,6 +70,7 @@ class Question{
         return $question;
     }
 
+    //fonction par l'id de la question
     public function questionById($id_question){
         // Définition de la requête SQL pour récupérer une annonce par son identifiant
         $query = "SELECT * FROM question WHERE id_question = :id_question";   
@@ -83,9 +88,9 @@ class Question{
         return $id_question;
     }
 
-    public function getAllQuestion(){
-     //récuperer les toutes annonces     
-    // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
+    //fonction pour recuperer toutes les questions
+    public function getAllQuestion(){   
+    // Requête pour récupérer toutes les questions avec les infos des utilisateurs
     $query = "SELECT 
                 q.id_question,q.date,q.theme,q.question
                 ,q.image_1,q.image_2,
@@ -140,6 +145,7 @@ class Question{
        
     }
 
+    //récuperer la question par le theme
     public function getQuestionByTheme($theme){
            
         $query = "SELECT q.id_question,q.date, q.theme, q.question,q.image_1,q.image_2,
@@ -161,6 +167,7 @@ class Question{
         
     }
 
+    //decompte des question pour l'admin
     function getTotalQuestions(){
         $query = "SELECT COUNT(*) as total FROM question";
         $dbConnexion = $this->db->getConnexion();

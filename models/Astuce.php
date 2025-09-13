@@ -1,6 +1,10 @@
 <?PHP
+/*
+ici les functions de classe (instance de classe) 
+des requtes SQL pour gérer les astuces
+*/
 
-require_once "../db/Database.php";
+require_once "../db/Database.php"; //fichier bde connexion
 
 class Astuce{
 
@@ -11,23 +15,29 @@ class Astuce{
         $this->db = Database::getInstance();
     }
 
+    //fonction pour enregister en BDD
     public function registerAstuce($astuce,$date,$image_1,$image_2,$image_3,$id_user) {
-
+        //requete SQL stokée dans une variable
         $query = "INSERT INTO astuce(astuce,date,image_1,image_2,image_3,id_user)
                    VALUES(:astuce,:date,:image_1,:image_2,:image_3,:id_user)";
+        //obtenir la connexio a la BDD
         $dbConnexion = $this->db->getConnexion();
+        //préparer la requete
         $req = $dbConnexion->prepare($query);
+        // Liaison du paramètre : dans la requête SQL avec la valeur fournie en argument
         $req->bindParam(':astuce',$astuce);
         $req->bindParam(':date',$date);
         $req->bindParam(':image_1',$image_1);
         $req->bindParam(':image_2',$image_2);
         $req->bindParam(':image_3',$image_3);
         $req->bindParam(':id_user',$id_user);
-        //$req->bindParam(':id_question',$id_question);
+        //executer la requete
         $req->execute();
+        //compter le nombre de lignes
         return $req->rowCount() > 0;
     }
 
+    //fonction pour ramener par l'id
     public function getAstuceById($id_astuce){
         // Définition de la requête SQL pour récupérer une annonce par son identifiant
         $query = "SELECT * FROM astuce WHERE id_astuce = :id_astuce";   
@@ -45,7 +55,7 @@ class Astuce{
         return $result;
     }
 
-    //récuperer toutes les astuces
+    //récuperer tous
     public function getAllAstuces(){
     // Requête pour récupérer toutes les annonces avec les infos des utilisateurs
     $query = "SELECT a.id_astuce, a.astuce, a.date, a.image_1, a.image_2, a.image_3,
@@ -67,7 +77,7 @@ class Astuce{
         return $resultats;
     }
 
-    //pour l'administrateur 
+    //pour l'administrateur decompte 
     function getTotalAstuces(){
         $query = "SELECT COUNT(*) as total FROM astuce";
         $dbConnexion = $this->db->getConnexion();
@@ -80,16 +90,21 @@ class Astuce{
 
     //astuce par l'id de l'utilisateur
     public function astuceByIdUser($id_user){
+        //requete pour recuperer par l'id de l'utilisateur les astuces
         $query = "SELECT 
         a.id_astuce,a.astuce,a.date,a.image_1,a.image_2,a.image_3,
         u.id_user,u.nom,u.prenom,u.photo_profil,u.email
         FROM astuce a
         JOIN users u ON a.id_user = u.id_user
         WHERE u.id_user = :id_user
-        ORDER BY a.id_astuce DESC;";
+        ORDER BY a.id_astuce DESC";
+        //connexion a la BDD
         $dbConnexion = $this->db->getConnexion();
+        //preparer la requete
         $req = $dbConnexion->prepare($query);
+        //lier les paramètres
         $req->bindParam(':id_user',$id_user);
+        //executer la requete
         $req->execute();
         $resultats = array();    
         // Parcours des résultats de la requête et stockage dans le tableau $resultats

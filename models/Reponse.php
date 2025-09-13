@@ -1,4 +1,8 @@
 <?php
+/*
+ici les functions de classe (instance de classe) 
+des requtes SQL pour gérer les Reponses
+*/
 
 require_once "../db/Database.php";
 
@@ -11,6 +15,7 @@ class Reponse{
         $this->db = Database::getInstance();
     }
 
+    //fonction pour enregister en BDD
     public function registerReponse($date,$reponse,$id_user,$id_question){
         $query = "INSERT INTO reponse(date,reponse,id_user,id_question)
                  VALUES(:date,:reponse, :id_user, :id_question)";
@@ -24,6 +29,7 @@ class Reponse{
           
     }
 
+    //pour tout recuperer
     public function AllReponses(){
         $query = "SELECT r.id_reponse,r.date, r.reponse, 
             r.id_user as id_user, u.nom,u.prenom,u.email,u.photo_profil 
@@ -46,6 +52,7 @@ class Reponse{
         return $resultats;   
     }
 
+    //recuperer par l'id de la reponse
     public function reponseById($id_reponse){
         // Définition de la requête SQL pour récupérer une reponse par son identifiant
         $query = "SELECT * FROM reponse WHERE id_reponse = :id_reponse";   
@@ -63,8 +70,8 @@ class Reponse{
         return $id_reponse;
     }
 
+    //recuperer par l'id de la question
     public function reponseByIdQuestion($id_user, $id_question){
-
         $query = "SELECT * FROM reponse WHERE id_user = :id_user, id_question = :id_question";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
@@ -79,6 +86,7 @@ class Reponse{
         return $resultats;   
     }
 
+    //recuperer par l'id de l'utilisateur
     public function reponseByIdUser($id_user){
         $query = "SELECT 
         p.id_reponse,p.date,p.reponse,
@@ -99,8 +107,7 @@ class Reponse{
         return $resultats;   
     }
 
-    public function getReponsesForQuestion($id_question) {
-       
+    public function getReponsesForQuestion($id_question) {      
         $query = "SELECT reponse.*, users.nom, users.prenom
                   FROM reponse
                     JOIN users ON reponse.id_user = users.id_user
@@ -125,7 +132,7 @@ class Reponse{
         return $question;
     }
 
-     //supprimer le commentaire
+     //supprimer la reponse
      public function deleteReponse($id_reponse){
         $query = "DELETE FROM reponse WHERE id_reponse =:id_reponse";
         $dbConnexion = $this->db->getConnexion();

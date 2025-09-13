@@ -1,4 +1,8 @@
 <?php
+/*
+ici les functions de classe (instance de classe) 
+des requtes SQL pour gérer les utilisateurs
+*/
 //inclure la class de connexion a la bdd
 require_once "../db/Database.php";
 
@@ -68,8 +72,7 @@ class Users{
     }
 
      //méthode de récupération l'user par le role
-     public function getByRole($new_role){
-      
+     public function getByRole($new_role){      
         $query = "SELECT * FROM users WHERE role = :role";
         $dbConnexion = $this->db->getConnexion();
         $req = $dbConnexion->prepare($query);
@@ -99,6 +102,7 @@ class Users{
     }
 
 
+    //requete pour se connecter
     public function login($email, $password){
         $query = "SELECT id_user, password FROM users WHERE email = :email";
         $dbConnexion = $this->db->getConnexion();
@@ -114,8 +118,7 @@ class Users{
         return false;
     }
 
-    public function getAllUser(){
-        //récuperer les toutes annonces     
+    public function getAllUser(){ 
        // Requête pour récupérer toutes les annonces avec les infos des utilisateur
         $query = "SELECT u.nom, u.prenom, u.email, u.photo_profil as id_user,
                          q.id_question, q.theme, q.question FROM users u
@@ -136,7 +139,7 @@ class Users{
            return $resultats;
        }
    
-
+    //requete pour changer des données de l'utilisateur
     public function updateUser($id_user, $nom, $prenom, $email, $photo_profil){
         $query = "UPDATE users SET nom=:nom, prenom=:prenom, email=:email, photo_profil=:photo_profil,
                                   role=:role WHERE id_user=:id_user";
@@ -153,33 +156,37 @@ class Users{
         return $req->rowCount() > 0;
     }
 
+    //requete de désinscription
     public function seDesinscrire(){
-
+            //supprimer les reponses
             $query = ("DELETE FROM reponse WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_reponses = $dbConnexion->prepare($query);
                 $req_reponses->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
                 $req_reponses->execute();
         
-                // Supprimer la question
+                // Supprimer les questions
                 $query = ("DELETE FROM question WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_questions = $dbConnexion->prepare($query);   
                 $req_questions->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
                 $req_questions->execute();
 
+                //supprimer les astuces
                 $query = ("DELETE FROM astuce WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_astuces = $dbConnexion->prepare($query);   
                 $req_astuces->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
                 $req_astuces->execute();
 
+                //supprimer les commentaires
                 $query = ("DELETE FROM commentaire WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_commentaires = $dbConnexion->prepare($query);   
                 $req_commentaires->bindParam(':id_user', $_SESSION['id_user'], PDO::PARAM_INT);
                 $req_commentaires->execute();
 
+                //supprimer l'utilisateur qui le veut
                 $query = ("DELETE FROM users WHERE id_user = :id_user");
                 $dbConnexion = $this->db->getConnexion();
                 $req_users = $dbConnexion->prepare($query);
@@ -191,6 +198,7 @@ class Users{
                 return $req_users->fetchAll();
     }
 
+    
         function getUser($limit=null,$page=null)
         {
         $query = 'SELECT * FROM users ORDER BY id_user DESC';
