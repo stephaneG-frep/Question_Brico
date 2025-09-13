@@ -1,25 +1,22 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
-//adminOnly();
 
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Astuce.php";
 
-//$new_user = new Users();
-//$user = $new_user->getUserById($id);
-
+require_once "template/header.php";//fichier de l'accueil
+require_once "../db/config.php";// fichier de la connexion
+require_once "../models/Astuce.php";// fichier de classe Astuce
 
 $commentaire = false;
 $errors = [];
 $messages = [];
-if (isset($_GET["id_astuce"])) {
+if (isset($_GET["id_astuce"])) { //ramener l'id de l'astuce
+    //instancier une astuce
     $new_astuce = new Astuce();
+    //pour ramener les astuces par leur id
     $astuce =  $new_astuce->getAstuceById( (int)$_GET["id_astuce"]);
 }
-if ($astuce) {
+if ($astuce) { //si il y a astuce alors appel a la fonction (instance de classe) delete telle astuce
     if ($astuce = $new_astuce->deleteAstuce( $_GET["id_astuce"])) {
         $messages[] = "L'astuce à bien été supprimée";
     } else {
@@ -30,7 +27,7 @@ if ($astuce) {
 }
 ?>
 <div class="row text-center my-5">
-    <h1>Supression de commentaire</h1>
+    <h1>Supression d'astuce</h1>
     <?php foreach ($messages as $message) { ?>
     <div class="alert alert-success" role="alert">
         <?= $message; ?>

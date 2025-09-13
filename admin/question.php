@@ -1,22 +1,22 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
-//adminOnly();
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Question.php";
+//inclure les fichier nécéssaire
 
+require_once "template/header.php";//fichier d'accueil
+require_once "../db/config.php";//fichier de connexion
+require_once "../models/Question.php";//fichier de classe 
 
+//vérifier qu'il y est des page et la quelle sinon page 1
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
 } else {
     $page = 1;
 }
 
-//instancier un user
+//instancier une question
 $new_question = new Question();
-//rammener tous les users 10 par pages
+//rammener tous les questions 10 par pages
 $questions = $new_question->getAllQuestion(10, $page);
 
 //compter
@@ -46,6 +46,7 @@ $totalPages = ceil($totalAnnonces / 10);
         </tr>
     </thead>
     <tbody>
+        <!-- on boucle avec foreach sur les questions et on les insère dans un tableau -->
         <?php foreach($questions as $question) {?>
         <tr>
             <th scope="row"><?=$question['id_question']?></th>

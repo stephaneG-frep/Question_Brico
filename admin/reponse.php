@@ -1,13 +1,13 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
-//adminOnly();
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Reponse.php";
+//inclure les fichier nécéssaire
 
+require_once "template/header.php";//fichier ded l'accueil
+require_once "../db/config.php";//fichier de connexion
+require_once "../models/Reponse.php";//fichier de classe
 
+//vérifier qu'il y est des page et la quelle sinon page 1
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
 } else {
@@ -40,6 +40,7 @@ $totalPages = ceil($totalAnnonces / 10);
         </tr>
     </thead>
     <tbody>
+        <!-- on boucle avec foreach sur les reponses et on les insère dans un tableau -->
         <?php foreach($reponses as $reponse) {?>
         <tr>
             <th scope="row"><?=$reponse['id_reponse']?></th>

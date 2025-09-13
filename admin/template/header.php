@@ -1,10 +1,5 @@
 <?php 
-//adminOnly();
 
-//require_once "../../Users.php";
-//require_once  "../../db/config.php";
-//require_once "../../session/session.php";
-//adminOnly();
 
 ?>
 

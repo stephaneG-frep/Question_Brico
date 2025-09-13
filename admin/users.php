@@ -1,14 +1,13 @@
 <?php
 error_reporting(-1);
 ini_set("display_errors", 1);
-//incluer les fichier nécéssaire
+//inclure les fichier nécéssaire
 
+require_once "template/header.php";//fichier de l'accueil
+require_once "../db/config.php";//fichier de connexion 
+require_once "../models/Users.php";//fichier de classe
 
-require_once "template/header.php";
-require_once "../db/config.php";
-require_once "../models/Users.php";
-
-
+//vérifier qu'il y est des page et la quelle sinon page 1
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
 } else {
@@ -42,6 +41,7 @@ $totalPages = ceil($totalUsers / 10);
         </tr>
     </thead>
     <tbody>
+        <!-- on boucle avec foreach sur les users et on les insère dans un tableau -->
         <?php foreach($users as $user) {?>
         <tr>
             <th scope="row"><?=$user['id_user']?></th>

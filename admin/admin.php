@@ -4,17 +4,18 @@ error_reporting(-1);
 ini_set("display_errors", 1);
 
 //inclure les fichiers nécéssaire
-require_once "template/header.php";
-require_once "../models/Users.php";
-require_once "../db/config.php";
+require_once "template/header.php"; //fichier de page d'accueil de l'administrationb
+require_once "../models/Users.php"; //fichier de la classe users(avec toutes ses instances de classe)
+require_once "../db/config.php"; //fichier de connexion a la BDD
 
+//vérifier qu'il y est des page et la quelle sinon page 1
 if (isset($_GET['page'])) {
     $page = (int)$_GET['page'];
 } else {
     $page = 1;
 }
 
-//instancier un user
+//instancier un user avec la classe users
 $new_user = new Users();
 //rammener tous les users 10 par pages
 $users = $new_user->AllUsers(10, $page);
@@ -26,10 +27,12 @@ $totalPages = ceil($totalAnnonces / 10);
 
 // Traitement du changement de rôle
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_user = $_POST['id_user'] ?? 0;
-    $new_role = $_POST['role'] ?? '';
+    $id_user = $_POST['id_user'] ?? 0; //la variable est egale au post de l'id sinon 0
+    $new_role = $_POST['role'] ?? ''; //la variable est egale au role sinon elle est vide
 
+    // si l'id est supperieur a 0 et le role est dans le tableau 
     if ($id_user > 0 && in_array($new_role, ['user', 'moderateur', 'admin'])) {
+        //instancier et changer le role
         $user_role = new Users();
         $role = $user_role->updateRole($id_user,$new_role);
     }
