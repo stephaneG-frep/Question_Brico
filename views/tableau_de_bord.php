@@ -19,17 +19,19 @@ require_once "../include/header.php";
 // Vérifier si l'utilisateur est connecté
 if (isset($_SESSION['id_user'])) {
     $id_user = $_SESSION['id_user'];
+    //instancier un user 
     $new_user = new Users();
+    //ramener le user par son id
     $user = $new_user->getUserById($id_user);
 
-    //$questions = $new_question->questionByIdUser($id_user);
+    
     $nom = $user['nom'];
     $prenom = $user['prenom'];
     $email = $user['email'];
     $image = $user['photo_profil'];
     $role = $user['role'];
 
-
+//sur cette page plusieurs façon de coder du PHP intégré avec du html
         echo '
 
         <br><br>
@@ -56,7 +58,7 @@ if (isset($_SESSION['id_user'])) {
  ?>
  
  <?php
-    if($user['role'] === "admin"){
+    if($user['role'] === "admin"){//si le role est egal a admin le lien administration s'affiche
 ?>
     <p class="admin"><a href="../admin/index.php">Administration</a></p>   
 <?php
@@ -69,13 +71,15 @@ if (isset($_SESSION['id_user'])) {
 <div class="container">
 <?php
 
+    //instancier la question
     $new_question = new Question();
+    //recupérer les questions de l'utilisateur par son id
     $questions = $new_question->questionByIdUser($id_user);
 
     if (empty($questions)) {
         echo "<p class='no_question'>Aucune question trouvée.</p>";   
     }else{
-        foreach ($questions as $question) {
+        foreach ($questions as $question) {//on boucle sur les question pour les afficher
             echo '<div class="question"><p>Posté le : '
             . htmlspecialchars($question['date']) .'</p>' ;
                 echo '<div class="question-theme">' 
@@ -107,12 +111,14 @@ if (isset($_SESSION['id_user'])) {
                            class="reply-button">Supprimer</a>
             </div>';
          // Afficher les réponses existantes
+         //instancier le reponse
             $reponse = new Reponse();
+            //recuperer les reponses par les questions
             $reponses = $reponse->getReponsesForQuestion($question['id_question']);
 
             if (!empty($reponses)) {  
                 echo '<div class="reponses">';
-                foreach ($reponses as $reponse) {
+                foreach ($reponses as $reponse) {//on boucle sur les reponses
                     echo '<div class="reponse"><p>Posté le : '
                                 . htmlspecialchars($reponse['date']) .'</p>';
                         echo '<h5><strong>Une reponse de : ' . htmlspecialchars($reponse['prenom']
@@ -130,8 +136,9 @@ if (isset($_SESSION['id_user'])) {
         <p>Merci de supprimer vos réponses au bout de 3 semaines...</p>
         
         <?php
-
+            //instancier la reponse
             $new_reponse = new Reponse();
+            //recuperer les reponses par l'id de l'utilisateur            
             $reponses = $new_reponse->reponseByIdUser($id_user);
 
             if (empty($reponses)) {
@@ -156,6 +163,7 @@ if (isset($_SESSION['id_user'])) {
             <h2 class="dashboard-title">Mes Astuces</h2>
             <p>Merci de supprimer vos astuces au bout de 3 semaines...</p>
         <?php    
+
             $new_astuce = new Astuce();
             $astuces = $new_astuce->astuceByIdUser($id_user);
         ?>
