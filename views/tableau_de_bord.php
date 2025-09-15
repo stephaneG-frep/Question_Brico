@@ -246,6 +246,8 @@ if (isset($_SESSION['id_user'])) {
             <?php endif; ?>
         </div>
     </div>
+
+    }
 <?php
 echo
 '</div>';
