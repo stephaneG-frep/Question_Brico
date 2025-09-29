@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 
 require_once "../models/Users.php";
 require_once "../models/Question.php";
-//require_once "../db/config.php";
+require_once "../db/config.php";
 require_once "../include/head.php";
 require_once "../include/nav_burger.php";
 //require_once "../include/navigation.php";
