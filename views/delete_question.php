@@ -4,7 +4,6 @@ ini_set("display_errors", 1);
 //incluer les fichier nécéssaire
 
 require_once "../models/Users.php";
-require_once "../models/Image.php";
 require_once "../models/Question.php";
 require_once "../models/Reponse.php";
 require_once "../db/config.php";

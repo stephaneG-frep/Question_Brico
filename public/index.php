@@ -6,7 +6,7 @@ ini_set("display_errors", 1);
 //requerir aux fichiers nécéssaire
 require_once "../models/Users.php";
 require_once "../models/Question.php";
-require_once "../models/Image.php";
+//require_once "../models/Image.php";
 require_once "../models/Reponse.php";
 require_once "../db/config.php";
 require_once "../include/head.php";
