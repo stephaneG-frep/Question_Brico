@@ -7,7 +7,7 @@ require_once "template/header.php";//fichier de l'accueil
 require_once "../db/config.php";// fichier de la connexion
 require_once "../models/Astuce.php";// fichier de classe Astuce
 
-$commentaire = false;
+$astuce = false;
 $errors = [];
 $messages = [];
 if (isset($_GET["id_astuce"])) { //ramener l'id de l'astuce
